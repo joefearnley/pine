@@ -79,7 +79,7 @@ const Home: React.FC = () => {
 
         <IonList>
           <IonReorderGroup disabled={false} onIonItemReorder={handleReorder}>
-          {players.filter(p => !p.inGame).map(p => <PlayerListItem key={p.id} player={p} />)}
+            {players.filter(p => !p.inGame).map(p => <PlayerListItem key={p.id} player={p} />)}
           </IonReorderGroup>
         </IonList>
       </IonContent>

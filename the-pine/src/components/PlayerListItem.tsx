@@ -13,10 +13,11 @@ interface PlayerListItemProps {
 const PlayerListItem: React.FC<PlayerListItemProps> = ({ player }) => {
   return (
     <div>
-      <IonItem>
-        <IonLabel>{player.name}</IonLabel>
-        <IonReorder slot="end"></IonReorder>
-      </IonItem>
+      <IonReorder>
+        <IonItem>
+          <IonLabel>{player.name}</IonLabel>
+        </IonItem>
+      </IonReorder>
     </div>
   );
 };
