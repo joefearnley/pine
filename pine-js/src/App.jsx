@@ -1,16 +1,49 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { 
+  IonApp,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonContent,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonNavLink,
+  IonButton
+} from '@ionic/react';
+import { ReactSortable } from "react-sortablejs";
 
 function App() {
-
+  
+  const [players, setPlayers] = useState([
+    { id: 1, name: "shrek" },
+    { id: 2, name: "fiona" },
+    { id: 3, name: "fawf" },
+    { id: 4, name: "fiowwwna" },
+    { id: 5, name: "fwef" },
+    { id: 6, name: "fiona424422" },
+  ]);
 
   return (
     <>
-      <div>
-
-      </div>
+      <IonApp>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Header</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonList>
+            <ReactSortable list={players} setList={setPlayers}>
+              {players.map((item) => (
+                <IonItem key={item.id}>
+                  <IonLabel>{item.name}</IonLabel>
+                </IonItem>
+              ))}
+            </ReactSortable>
+          </IonList>
+        </IonContent>
+      </IonApp>
     </>
   )
 }
