@@ -29,18 +29,20 @@ function App() {
       <IonApp>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Header</IonTitle>
+            <IonTitle>The Pine</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent>
           <IonList>
-            <ReactSortable list={players} setList={setPlayers}>
+
+            <ReactSortable list={players} setList={setPlayers} multiDrag swap>
               {players.map((item) => (
                 <IonItem key={item.id}>
                   <IonLabel>{item.name}</IonLabel>
                 </IonItem>
               ))}
             </ReactSortable>
+
           </IonList>
         </IonContent>
       </IonApp>
