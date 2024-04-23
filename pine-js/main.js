@@ -1,8 +1,7 @@
 // import './style.css'
 // import Sortable from 'sortablejs';
 
-import Framework7 from 'framework7';
-import 'framework7/css/framework7.bundle.css';
+import Framework7 from 'framework7/bundle';
 
 // document.querySelector('#app').innerHTML = `
 // <ul id="items">
@@ -16,21 +15,16 @@ import 'framework7/css/framework7.bundle.css';
 // var sortable = Sortable.create(el);
 
 
-var app = new Framework7({
-  // App root element
-  el: '#app',
-  // App Name
-  name: 'My App',
-  // Enable swipe panel
-  panel: {
-    swipe: true,
-  },
-  // Add default routes
-  routes: [
-    {
-      path: '/about/',
-      url: 'about.html',
+const app = new Framework7({
+    el: '#app',
+    name: 'Pint',
+    panel: {
+        swipe: true,
     },
-  ],
-  // ... other parameters
+    routes: [
+        {
+            path: '/roster/',
+            url: 'pages/roster.html',
+        },
+    ],
 });
