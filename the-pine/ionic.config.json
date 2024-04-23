@@ -1,7 +1,0 @@
-{
-  "name": "the-pine",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react-vite"
-}
