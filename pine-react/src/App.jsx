@@ -1,35 +1,44 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { App, 
+  NavRight, 
+  Panel, 
+  View, 
+  Page, 
+  Navbar, 
+  BlockTitle, 
+  Button, 
+  List,
+  ListItem,
+  Icon
+} from 'framework7-react';
+import { ReactSortable } from "react-sortablejs";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default () => {
+  const [players, setPlayers] = useState([
+    { id: 1, name: "shrek" },
+    { id: 2, name: "fiona" },
+    { id: 3, name: "black" },
+    { id: 4, name: "white" },
+  ]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    /* Main Framework7 App component where we pass Framework7 params */
+    <App theme="auto" name="My App">
+
+      {/*  Main view */}
+      <View main>
+        <Page>
+          <Navbar title="Awesome App"></Navbar>
+          <BlockTitle>Playing</BlockTitle>
+          <List dividersIos simpleList strong outline>
+            <ReactSortable list={players} setList={setPlayers}>
+              {players.map((item) => (
+                <ListItem key={item.id} title={item.name} />
+              ))}
+            </ReactSortable>
+          </List>
+        </Page>
+      </View>
+    </App>
   )
 }
-
-export default App
