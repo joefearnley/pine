@@ -4,36 +4,37 @@ import Sortable, { MultiDrag, Swap } from 'sortablejs';
 
 Sortable.mount(new MultiDrag(), new Swap());
 
-const playingList = players
+const playersOnField = players
     .filter(player => player.isPlaying)
     .map(player => {
     return `<li>${player.name}</li>`;
 }).join('');
 
-const playersOnBenchList = players
+const playersOnBench = players
     .filter(player => !player.isPlaying)
     .map(player => {
     return `<li data-id="${player.id}">${player.name}</li>`;
 }).join('');
 
 document.querySelector('#app').innerHTML = `
+    <h1 class="app-title">Pine</h1>
     <div>
         <h2>Players Playing</h2>
-        <ul id="players-playing" class="players">
-            ${playingList}
+        <ul id="players-on-field" class="players">
+            ${playersOnField}
         </ul>
 
         <h2>Players on Bench</h2>
         <ul id="players-on-bench" class="players">
-            ${playersOnBenchList}
+            ${playersOnBench}
         </ul>
     </div>
 `;
 
-var playersPlayingListEl = document.getElementById('players-playing');
-var playersOnBenchListEl = document.getElementById('players-on-bench');
+var playersOnFieldtEl = document.getElementById('players-on-field');
+var playersOnBenchtEl = document.getElementById('players-on-bench');
 
-Sortable.create(playersPlayingListEl, {
+Sortable.create(playersOnFieldtEl, {
     group: 'shared',
     multiDrag: true,
     selectedClass: "selected",
@@ -51,7 +52,7 @@ Sortable.create(playersPlayingListEl, {
     // },
 });
   
-Sortable.create(playersOnBenchListEl, {
+Sortable.create(playersOnBenchtEl, {
     group: 'shared',
     multiDrag: true,
     selectedClass: "selected",
