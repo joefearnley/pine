@@ -1,18 +1,14 @@
 import './style.css'
-import { players } from './data/players.js'
 import Sortable, { MultiDrag, Swap } from 'sortablejs';
+import Roster from './roster.js';
 
 Sortable.mount(new MultiDrag(), new Swap());
 
-const playersOnField = players
-    .filter(player => player.isPlaying)
-    .map(player => {
-    return `<li>${player.name}</li>`;
+const playersOnFieldHtml = Roster.getPlayersOnField().map(player => {
+    return `<li data-id="${player.id}">${player.name}</li>`;
 }).join('');
 
-const playersOnBench = players
-    .filter(player => !player.isPlaying)
-    .map(player => {
+const playersOnBenchHtml = Roster.getPlayersOnBench().map(player => {
     return `<li data-id="${player.id}">${player.name}</li>`;
 }).join('');
 
@@ -21,35 +17,28 @@ document.querySelector('#app').innerHTML = `
     <div>
         <h2>Players Playing</h2>
         <ul id="players-on-field" class="players">
-            ${playersOnField}
+            ${playersOnFieldHtml}
         </ul>
 
         <h2>Players on Bench</h2>
         <ul id="players-on-bench" class="players">
-            ${playersOnBench}
+            ${playersOnBenchHtml}
         </ul>
     </div>
 `;
 
-var playersOnFieldtEl = document.getElementById('players-on-field');
-var playersOnBenchtEl = document.getElementById('players-on-bench');
+const playersOnFieldtEl = document.getElementById('players-on-field');
+const playersOnBenchtEl = document.getElementById('players-on-bench');
 
 Sortable.create(playersOnFieldtEl, {
     group: 'shared',
     multiDrag: true,
     selectedClass: "selected",
     animation: 150,
-
-    // Element is dropped into the list from another list
     onAdd: function (evt) {
-        console.log('adding player to field......');
-        console.log(evt.item.innerHTML);
+        const playerId = parseInt(evt.item.dataset.id);
+        Roster.movePlayerToField(playerId);
     },
-    // Changed sorting within list
-    // onUpdate: function (/**Event*/evt) {
-    //     console.log('updating. item...');
-    //     console.log(evt);
-    // },
 });
   
 Sortable.create(playersOnBenchtEl, {
@@ -58,8 +47,7 @@ Sortable.create(playersOnBenchtEl, {
     selectedClass: "selected",
     animation: 150,
     onAdd: function (evt) {
-        console.log('adding player to bench......');
-        console.log(evt.item.innerHTML);
+        const playerId = parseInt(evt.item.dataset.id);
+        Roster.movePlayerToBench(playerId);
     },
-
 });

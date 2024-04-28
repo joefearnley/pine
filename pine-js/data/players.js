@@ -1,5 +1,4 @@
-
-export let players = [
+export const players = [
     {
         id: 0,
         name: 'Asher',
