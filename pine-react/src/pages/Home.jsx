@@ -1,9 +1,20 @@
-import { Page,  Navbar,  Link, } from 'framework7-react';
+import { useState, useEffect } from 'react';
+import {
+    Page,
+    Navbar,
+    Toolbar,
+    Icon,
+    Link,
+    BlockTitle,
+    List,
+    ListGroup,
+    ListItem
+} from 'framework7-react';
 import Sortable, { MultiDrag, Swap } from 'sortablejs';
 
 Sortable.mount(new MultiDrag(), new Swap());
 
-const Home = () => {
+const HomePage = () => {
     const [players, setPlayers] = useState([
         { id: 1, name: "shrek" },
         { id: 2, name: "fiona" },
@@ -42,6 +53,16 @@ const Home = () => {
     return (
         <Page name="home">
             <Navbar title="Home Page" />
+            <Toolbar bottom tabbar>
+                <Link tabLink href="/home" tabLinkActive>
+                    <Icon icon="icon-house"></Icon>
+                    Home
+                </Link>
+                <Link tabLink href="/roster/">
+                    <Icon icon="icon-list_bullet"></Icon>
+                    Roster
+                </Link>
+            </Toolbar>
             <BlockTitle>Playing</BlockTitle>
             <List id="players-on-field" dividersIos simpleList strong outline>
                 <ListGroup>
@@ -49,9 +70,9 @@ const Home = () => {
                         <ListItem key={item.id} title={item.name} />
                     ))}
                 </ListGroup>
-                </List>
-                <BlockTitle>Bench</BlockTitle>
-                <List id="players-on-bench" dividersIos simpleList strong outline>
+            </List>
+            <BlockTitle>Bench</BlockTitle>
+            <List id="players-on-bench" dividersIos simpleList strong outline>
                 <ListGroup>
                     {players.map((item) => (
                         <ListItem key={item.id} title={item.name} />
@@ -62,5 +83,5 @@ const Home = () => {
     )
 };
 
-export default Home;
+export default HomePage;
 

@@ -1,13 +1,21 @@
-import Home from './pages/Home.jsx';
-import Roster from './pages/Roster.jsx';
+import HomePage from './pages/Home.jsx';
+import RosterPage from './pages/Roster.jsx';
 
 export default [
     {
         path: '/',
-        component: Home,
-    },
-    {
-        path: '/roster/',
-        component: Roster,
-    },
+        component: HomePage,
+        tabs: [
+            {
+                path: '/home/',
+                id: 'tab-home',
+                component: HomePage,
+            },
+            {
+                path: '/roster/',
+                id: 'tab-roster',
+                component: RosterPage,
+            },
+        ],
+    }
 ];
