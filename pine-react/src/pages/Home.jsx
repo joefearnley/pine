@@ -3,7 +3,6 @@ import {
     Page,
     Navbar,
     Toolbar,
-    Icon,
     Link,
     BlockTitle,
     List,
@@ -70,10 +69,17 @@ const HomePage = () => {
                 </ListGroup>
             </List>
             <Toolbar bottom tabbar>
-                <Link href="/home/" active> 
+                <Link 
+                    href="/"
+                    active
+                    iconIos="f7:house_fill"
+                    iconMd="material:home"> 
                     Home
                 </Link>
-                <Link href="/roster/">
+                <Link 
+                    href="/roster/"
+                    iconIos="f7:list_dash"
+                    iconMd="material:list">
                     Roster
                 </Link>
             </Toolbar>

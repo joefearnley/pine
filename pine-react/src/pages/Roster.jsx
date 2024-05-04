@@ -3,7 +3,6 @@ import {
     Page,
     Navbar,
     Toolbar,
-    Icon,
     Link,
 } from 'framework7-react';
 
@@ -23,12 +22,17 @@ const RosterPage = () => {
         <Page name="roster">
             <Navbar title="Roster" />
             <Toolbar bottom tabbar>
-                <Link href="/" active>
-                    <Icon icon="icon-house"></Icon>
+                <Link 
+                    href="/"
+                    active
+                    iconIos="f7:house_fill"
+                    iconMd="material:home"> 
                     Home
                 </Link>
-                <Link href="/roster/">
-                    <Icon icon="icon-list_bullet"></Icon>
+                <Link 
+                    href="/roster/"
+                    iconIos="f7:list_dash"
+                    iconMd="material:list">
                     Roster
                 </Link>
             </Toolbar>
