@@ -5,17 +5,9 @@ export default [
     {
         path: '/',
         component: HomePage,
-        tabs: [
-            {
-                path: '/home/',
-                id: 'tab-home',
-                component: HomePage,
-            },
-            {
-                path: '/roster/',
-                id: 'tab-roster',
-                component: RosterPage,
-            },
-        ],
-    }
+    },
+    {
+        path: '/roster/',
+        component: RosterPage,
+    },
 ];

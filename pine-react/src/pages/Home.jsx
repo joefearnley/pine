@@ -49,20 +49,10 @@ const HomePage = () => {
           },
         });
       }, []);
-    
+
     return (
         <Page name="home">
-            <Navbar title="Home Page" />
-            <Toolbar bottom tabbar>
-                <Link tabLink href="/home" tabLinkActive>
-                    <Icon icon="icon-house"></Icon>
-                    Home
-                </Link>
-                <Link tabLink href="/roster/">
-                    <Icon icon="icon-list_bullet"></Icon>
-                    Roster
-                </Link>
-            </Toolbar>
+            <Navbar title="Home" />
             <BlockTitle>Playing</BlockTitle>
             <List id="players-on-field" dividersIos simpleList strong outline>
                 <ListGroup>
@@ -79,6 +69,14 @@ const HomePage = () => {
                     ))}
                 </ListGroup>
             </List>
+            <Toolbar bottom tabbar>
+                <Link href="/home/" active> 
+                    Home
+                </Link>
+                <Link href="/roster/">
+                    Roster
+                </Link>
+            </Toolbar>
         </Page>
     )
 };
