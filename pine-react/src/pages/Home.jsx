@@ -9,6 +9,7 @@ import {
     ListGroup,
     ListItem
 } from 'framework7-react';
+
 import Sortable, { MultiDrag, Swap } from 'sortablejs';
 
 Sortable.mount(new MultiDrag(), new Swap());
@@ -73,7 +74,7 @@ const HomePage = () => {
                     href="/"
                     active
                     iconIos="f7:house_fill"
-                    iconMd="material:home"> 
+                    iconMd="material:home">
                     Home
                 </Link>
                 <Link 
