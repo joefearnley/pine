@@ -4,23 +4,38 @@ import {
     Navbar,
     Toolbar,
     Link,
+    List,
+    ListGroup,
+    ListItem,
+    BlockTitle,
+    useStore,
 } from 'framework7-react';
 
 const RosterPage = () => {
-    const [players, setPlayers] = useState([
-        { id: 1, name: "shrek" },
-        { id: 2, name: "fiona" },
-        { id: 3, name: "black" },
-        { id: 4, name: "white" },
-    ]);
 
-    useEffect(() => {
-        const playersOnFieldEl = document.querySelector('#players-on-field ul');
-    }, []);
+    const players = useStore('players');
+
+    // useEffect(() => {
+
+        // load initial player data
+        // useEffect(() => {
+        //     useStore('players');
+        //     store.dispatch('getPlayers');
+        // }, [useStore]);
+    
+    // }, []);
 
     return (
         <Page name="roster">
             <Navbar title="Roster" />
+            <BlockTitle>Playing</BlockTitle>
+            <List dividersIos simpleList strong outline>
+                <ListGroup>
+                    {players.map((item) => (
+                        <ListItem key={item.id} title={item.name} />
+                    ))}
+                </ListGroup>
+            </List>
             <Toolbar bottom tabbar>
                 <Link 
                     href="/"
