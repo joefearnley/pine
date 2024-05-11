@@ -13,17 +13,12 @@ import {
 
 const RosterPage = () => {
 
-    const players = useStore('players');
+    let players = useStore('players');
 
-    // useEffect(() => {
-
-        // load initial player data
-        // useEffect(() => {
-        //     useStore('players');
-        //     store.dispatch('getPlayers');
-        // }, [useStore]);
-    
-    // }, []);
+     // load initial player data
+    useEffect(() => {
+        store.dispatch('getPlayers');
+    }, []);
 
     return (
         <Page name="roster">

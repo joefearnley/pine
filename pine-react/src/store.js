@@ -18,6 +18,12 @@ const store = createStore({
     getters: {
         players({ state }) {
             return state.players;
+        },
+        playersPlaying: ({ state }) => {
+            return state.players.filter(player => player.isPlaying);
+        },
+        playersOnBench: ({ state }) => {
+            return state.players.filter(player => !player.isPlaying);
         }
     }
 });
