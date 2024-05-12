@@ -1,5 +1,6 @@
 // First import createStore function from Framework7 core
 import { createStore } from 'framework7/lite';
+import rosteredPlayers from './data/players.json';
 
 const store = createStore({
     state: {
@@ -7,12 +8,8 @@ const store = createStore({
     },
     actions: {
         getPlayers({ state }) {
-            fetch('./data/players.json')
-                .then((res) => res.json())
-                .then((players) => {
-                    console.log(players);
-                    // state.players = players;
-                });
+            console.log(rosteredPlayers);
+            state.players = rosteredPlayers;
         },
     },
     getters: {

@@ -12,13 +12,15 @@ import {
 } from 'framework7-react';
 
 const RosterPage = () => {
+    // let players = [];
+
 
     let players = useStore('players');
 
-     // load initial player data
-    useEffect(() => {
-        store.dispatch('getPlayers');
-    }, []);
+    //  // load initial player data
+    // useEffect(() => {
+    //     store.dispatch('getPlayers');
+    // }, []);
 
     return (
         <Page name="roster">
