@@ -1,15 +1,21 @@
 // First import createStore function from Framework7 core
 import { createStore } from 'framework7/lite';
-import rosteredPlayers from './data/players.json';
 
 const store = createStore({
     state: {
+        loading: false,
         players: [],
     },
     actions: {
         getPlayers({ state }) {
-            console.log(rosteredPlayers);
-            state.players = rosteredPlayers;
+            state.loading = true;
+
+            fetch('./data/players.json')
+                .then((res) => res.json())
+                .then((players) => {
+                    state.players = players;
+                    state.loading = false;
+                });
         },
     },
     getters: {

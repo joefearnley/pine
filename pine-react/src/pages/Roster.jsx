@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
+    f7,
     Page,
     Navbar,
     Toolbar,
@@ -8,24 +9,24 @@ import {
     ListGroup,
     ListItem,
     BlockTitle,
+    Block,
     useStore,
 } from 'framework7-react';
 
 const RosterPage = () => {
-    // let players = [];
+    const players = useStore('players');
+    const loading = useStore('usersLoading');
 
-
-    let players = useStore('players');
-
-    //  // load initial player data
-    // useEffect(() => {
-    //     store.dispatch('getPlayers');
-    // }, []);
+    useEffect(() => {
+        f7.store.dispatch('getPlayers');
+        console.log(players);
+    }, []);
 
     return (
         <Page name="roster">
             <Navbar title="Roster" />
-            <BlockTitle>Playing</BlockTitle>
+            <BlockTitle>Players</BlockTitle>
+            {players && (
             <List dividersIos simpleList strong outline>
                 <ListGroup>
                     {players.map((item) => (
@@ -33,6 +34,11 @@ const RosterPage = () => {
                     ))}
                 </ListGroup>
             </List>
+            )}
+
+            <Block className="text-align-center">
+            {loading && <Preloader />}
+            </Block>
             <Toolbar bottom tabbar>
                 <Link 
                     href="/"
