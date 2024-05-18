@@ -15,7 +15,7 @@ import {
 
 const RosterPage = () => {
     const players = useStore('players');
-    const loading = useStore('usersLoading');
+    const loading = useStore('loading');
 
     useEffect(() => {
         f7.store.dispatch('getPlayers');

@@ -19,6 +19,9 @@ const store = createStore({
         },
     },
     getters: {
+        loading({ state }) {
+            return state.loading;
+        },
         players({ state }) {
             return state.players;
         },
