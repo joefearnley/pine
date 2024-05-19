@@ -19,18 +19,10 @@ const store = createStore({
         },
     },
     getters: {
-        loading({ state }) {
-            return state.loading;
-        },
-        players({ state }) {
-            return state.players;
-        },
-        playersPlaying: ({ state }) => {
-            return state.players.filter(player => player.isPlaying);
-        },
-        playersOnBench: ({ state }) => {
-            return state.players.filter(player => !player.isPlaying);
-        }
+        loading: ({ state }) => state.loading,
+        players: ({ state }) => state.players,
+        playersPlaying: ({ state }) => state.players.filter(player => player.isPlaying),
+        playersOnBench: ({ state }) => state.players.filter(player => !player.isPlaying),
     }
 });
 

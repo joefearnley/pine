@@ -11,15 +11,14 @@ import {
     BlockTitle,
     Block,
     useStore,
+    Preloader,
 } from 'framework7-react';
 
 const RosterPage = () => {
-    const players = useStore('players');
-    const loading = useStore('loading');
+    let players = useStore('players');
 
     useEffect(() => {
         f7.store.dispatch('getPlayers');
-        console.log(players);
     }, []);
 
     return (
@@ -27,18 +26,15 @@ const RosterPage = () => {
             <Navbar title="Roster" />
             <BlockTitle>Players</BlockTitle>
             {players && (
-            <List dividersIos simpleList strong outline>
-                <ListGroup>
-                    {players.map((item) => (
-                        <ListItem key={item.id} title={item.name} />
-                    ))}
-                </ListGroup>
-            </List>
+                <List dividersIos simpleList strong outline>
+                    <ListGroup>
+                        {players.map((item) => (
+                            <ListItem key={item.id} title={item.name} />
+                        ))}
+                    </ListGroup>
+                </List>
             )}
 
-            <Block className="text-align-center">
-            {loading && <Preloader />}
-            </Block>
             <Toolbar bottom tabbar>
                 <Link 
                     href="/"
