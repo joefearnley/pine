@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient'
 import {
     Page,
     Navbar,
@@ -50,7 +51,7 @@ const HomePage = () => {
       }, []);
 
       async function setPlayers() {
-        const { players } = await supabase.from("players").select();
+        const { players } = await supabase.from('players').select();
         console.log(players);
 
         setPlayersPlaying(players);

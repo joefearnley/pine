@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from '../supabaseClient'
 
 import {
     f7,
@@ -15,8 +15,6 @@ import {
     useStore,
     Preloader,
 } from 'framework7-react';
-
-const supabase = createClient('https://dsmpjsdsczwgkafubpga.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzbXBqc2RzY3p3Z2thZnVicGdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYzMzY5NjIsImV4cCI6MjAzMTkxMjk2Mn0.j_Eo_4mV2M0sFm9hFiH2MvmYnEh8nO37DK6T2HdN1tw');
 
 const RosterPage = () => {
     const [players, setPlayers] = useState([]);
