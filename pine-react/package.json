@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.43.2",
     "framework7": "^8.3.3",
     "framework7-icons": "^5.0.5",
     "framework7-react": "^8.3.3",
