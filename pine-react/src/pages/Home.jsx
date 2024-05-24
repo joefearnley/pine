@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient'
+import { ReactSortable, Sortable, MultiDrag, Swap } from "react-sortablejs";
 import {
     Page,
     Navbar,
     Toolbar,
     Link,
+    Block,
     BlockTitle,
     List,
     ListGroup,
-    ListItem
+    ListItem,
+    Preloader
 } from 'framework7-react';
-
-import Sortable, { MultiDrag, Swap } from 'sortablejs';
 
 Sortable.mount(new MultiDrag(), new Swap());
 
@@ -47,14 +48,17 @@ const HomePage = () => {
         //   },
         // });
 
+        setLoading(true);
         setPlayers();
       }, []);
 
       async function setPlayers() {
-        const { players } = await supabase.from('players').select();
-        console.log(players);
+        const { data } = await supabase.from('players').select();
+        const playing = data.filter(item => item.is_playing);
+        const onTheBench = data.filter(item => !item.is_playing);
 
-        setPlayersPlaying(players);
+        setPlayersPlaying(playing);
+        setPlayersNotPlaying(onTheBench);
         setLoading(false);
     }
 
@@ -62,23 +66,49 @@ const HomePage = () => {
         <Page name="home">
             <Navbar title="Home" />
             <BlockTitle>Playing</BlockTitle>
+            {loading && (
+                <Block className="text-align-center">
+                    <Preloader />
+                </Block>
+            )}
+            
             {playersNotPlaying.length && (
-                <List id="players-playing" dividersIos simpleList strong outline>
+                <List dividersIos simpleList strong outline>
                     <ListGroup>
-                        {playersPlaying.map((item) => (
-                            <ListItem key={item.id} title={item.name} />
-                        ))}
+                        <ReactSortable
+                            list={playersPlaying}
+                            setList={setPlayersPlaying}
+                            multiDrag
+                            swap
+                        >
+                            {playersPlaying.map((item) => (
+                                <ListItem key={item.id} title={item.name} />
+                            ))}
+                        </ReactSortable>
                     </ListGroup>
                 </List>
             )}
-
+    
             <BlockTitle>Bench</BlockTitle>
+            {loading && (
+                <Block className="text-align-center">
+                    <Preloader />
+                </Block>
+            )}
+
             {playersNotPlaying.length && (
-                <List id="players-not-playing" dividersIos simpleList strong outline>
+                <List dividersIos simpleList strong outline>
                     <ListGroup>
-                        {playersNotPlaying.map((item) => (
-                            <ListItem key={item.id} title={item.name} />
-                        ))}
+                        <ReactSortable
+                            list={playersNotPlaying}
+                            setList={setPlayersNotPlaying}
+                            multiDrag
+                            swap
+                        >
+                            {playersNotPlaying.map((item) => (
+                                <ListItem key={item.id} title={item.name} />
+                            ))}
+                        </ReactSortable>
                     </ListGroup>
                 </List>
              )}
