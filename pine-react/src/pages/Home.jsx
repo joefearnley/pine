@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient'
-import { ReactSortable, Sortable, MultiDrag, Swap } from "react-sortablejs";
+// import Sortable, { MultiDrag, Swap } from 'sortablejs';
+import { ReactSortable } from "react-sortablejs";
 import {
     Page,
     Navbar,
@@ -14,7 +15,8 @@ import {
     Preloader
 } from 'framework7-react';
 
-Sortable.mount(new MultiDrag(), new Swap());
+
+// Sortable.mount(new MultiDrag(), new Swap());
 
 const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
@@ -54,8 +56,8 @@ const HomePage = () => {
 
       async function setPlayers() {
         const { data } = await supabase.from('players').select();
-        const playing = data.filter(item => item.is_playing);
-        const onTheBench = data.filter(item => !item.is_playing);
+        let playing = data.filter(item => item.is_playing);
+        let onTheBench = data.filter(item => !item.is_playing);
 
         setPlayersPlaying(playing);
         setPlayersNotPlaying(onTheBench);
@@ -78,8 +80,7 @@ const HomePage = () => {
                         <ReactSortable
                             list={playersPlaying}
                             setList={setPlayersPlaying}
-                            multiDrag
-                            swap
+                            group="shared-group"
                         >
                             {playersPlaying.map((item) => (
                                 <ListItem key={item.id} title={item.name} />
@@ -102,8 +103,7 @@ const HomePage = () => {
                         <ReactSortable
                             list={playersNotPlaying}
                             setList={setPlayersNotPlaying}
-                            multiDrag
-                            swap
+                            group="shared-group-name"
                         >
                             {playersNotPlaying.map((item) => (
                                 <ListItem key={item.id} title={item.name} />
