@@ -103,7 +103,7 @@ const HomePage = () => {
                         <ReactSortable
                             list={playersNotPlaying}
                             setList={setPlayersNotPlaying}
-                            group="shared-group-name"
+                            group="shared-group"
                         >
                             {playersNotPlaying.map((item) => (
                                 <ListItem key={item.id} title={item.name} />
