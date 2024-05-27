@@ -54,6 +54,17 @@ const HomePage = () => {
         setPlayers();
       }, []);
 
+
+        function handleOnEnd(evt) {
+            var itemEl = evt.item;  // dragged HTMLElement
+            evt.to; // target list
+            evt.from;  // previous list
+            evt.oldIndex; // element's old index within old parent
+            evt.newIndex; // element's new index within new parent
+
+            console.log(evt);
+        };
+
       async function setPlayers() {
         const { data } = await supabase.from('players').select();
         let playing = data.filter(item => item.is_playing);
@@ -80,7 +91,8 @@ const HomePage = () => {
                         <ReactSortable
                             list={playersPlaying}
                             setList={setPlayersPlaying}
-                            group="shared-group"
+                            group="sharedGroup"
+                            onEnd={handleOnEnd}
                         >
                             {playersPlaying.map((item) => (
                                 <ListItem key={item.id} title={item.name} />
@@ -103,7 +115,8 @@ const HomePage = () => {
                         <ReactSortable
                             list={playersNotPlaying}
                             setList={setPlayersNotPlaying}
-                            group="shared-group"
+                            group="sharedGroup"
+                            onEnd={handleOnEnd}
                         >
                             {playersNotPlaying.map((item) => (
                                 <ListItem key={item.id} title={item.name} />
