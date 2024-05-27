@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient'
-// import Sortable, { MultiDrag, Swap } from 'sortablejs';
 import { ReactSortable } from "react-sortablejs";
 import {
     Page,
@@ -15,57 +14,34 @@ import {
     Preloader
 } from 'framework7-react';
 
-
-// Sortable.mount(new MultiDrag(), new Swap());
-
 const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
     const [playersNotPlaying, setPlayersNotPlaying] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        // const playersOnFieldEl = document.querySelector('#players-players ul');
-        // Sortable.create(playersOnFieldEl, {
-        //     group: 'shared',
-        //     multiDrag: true,
-        //     selectedClass: 'selected',
-        //     animation: 150,
-        //     onAdd: function (evt) {
-        //         const playerId = parseInt(evt.item.dataset.id);
-        //         console.log(`moving player go field: ${playerId}`);
-        //         // Roster.movePlayerToField(playerId);
-        //     },
-        // });
-    
-        // const playersOnBenchtEl = document.querySelector('#players-not-playing ul');
-        // Sortable.create(playersOnBenchtEl, {
-        //   group: 'shared',
-        //   multiDrag: true,
-        //   selectedClass: 'selected',
-        //   animation: 150,
-        //   onAdd: function (evt) {
-        //       const playerId = parseInt(evt.item.dataset.id);
-        //       console.log(`moving player go bench: ${playerId}`);
-        //       // Roster.movePlayerToBench(playerId);
-        //   },
-        // });
-
         setLoading(true);
         setPlayers();
-      }, []);
+    }, []);
 
+    async function movePlayerToField(evt) {
+        updatePlayerPlaying(evt.item.dataset.id, true);
+    };
 
-        function handleOnEnd(evt) {
-            var itemEl = evt.item;  // dragged HTMLElement
-            evt.to; // target list
-            evt.from;  // previous list
-            evt.oldIndex; // element's old index within old parent
-            evt.newIndex; // element's new index within new parent
+    async function movePlayerToBench(evt) {
+        updatePlayerPlaying(evt.item.dataset.id, false);
+    };
 
-            console.log(evt);
-        };
+    async function updatePlayerPlaying(playerId, playing) {
+        const { error } = await supabase
+            .from('players')
+            .update({ is_playing: playing })
+            .eq('id', playerId);
 
-      async function setPlayers() {
+        console.log(error);
+    }
+
+    async function setPlayers() {
         const { data } = await supabase.from('players').select();
         let playing = data.filter(item => item.is_playing);
         let onTheBench = data.filter(item => !item.is_playing);
@@ -92,10 +68,12 @@ const HomePage = () => {
                             list={playersPlaying}
                             setList={setPlayersPlaying}
                             group="sharedGroup"
-                            onEnd={handleOnEnd}
+                            onAdd={movePlayerToField}
                         >
-                            {playersPlaying.map((item) => (
-                                <ListItem key={item.id} title={item.name} />
+                            {playersPlaying.map((player) => (
+                                <li key={player.id}>
+                                    {player.name}
+                                </li>
                             ))}
                         </ReactSortable>
                     </ListGroup>
@@ -116,10 +94,12 @@ const HomePage = () => {
                             list={playersNotPlaying}
                             setList={setPlayersNotPlaying}
                             group="sharedGroup"
-                            onEnd={handleOnEnd}
+                            onAdd={movePlayerToBench}
                         >
-                            {playersNotPlaying.map((item) => (
-                                <ListItem key={item.id} title={item.name} />
+                            {playersNotPlaying.map((player) => (
+                                <li key={player.id}>
+                                    {player.name}
+                                </li>
                             ))}
                         </ReactSortable>
                     </ListGroup>
