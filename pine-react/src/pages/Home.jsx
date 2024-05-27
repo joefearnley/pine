@@ -33,11 +33,12 @@ const HomePage = () => {
     };
 
     async function updatePlayerPlaying(playerId, playing) {
-        const { error } = await supabase
+        const { data, error } = await supabase
             .from('players')
             .update({ is_playing: playing })
             .eq('id', playerId);
 
+        console.log(data);
         console.log(error);
     }
 
