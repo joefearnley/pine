@@ -6,9 +6,12 @@ use App\Models\User;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->user = User::factory()->create();
-    $this->password = 'secret';
-    $this->deviceName = "Joe's iPhone";
+    $this->password = 'secret123';
+    $this->deviceName = 'My iPhone';
+
+    $this->user = User::factory()->create([
+        'password' => bcrypt($this->password)
+    ]);
 });
 
 it('must provide a username and password to authenticate', function () {
@@ -90,10 +93,18 @@ it('authenticates a user and returns a token', function () {
 
     $response = $this->postJson(route('authenticate'), $postData);
 
-    $response->dd();
+    $responseData = $response->json();
 
-    $response->assertStatus(422)
-        ->assertJsonFragment(
-            ['token'],
-        );
+    [$id, $token] = explode('|', $responseData['token'], 2);
+
+    $response->assertStatus(200)
+        ->assertSee('token')
+        ->assertJsonStructure(['token']);
+
+    $this->assertDatabaseHas('personal_access_tokens', [
+        'tokenable_id' => $this->user->id,
+        'name' => $this->deviceName,
+        'token' => hash('sha256', $token),
+    ]);
 });
+
