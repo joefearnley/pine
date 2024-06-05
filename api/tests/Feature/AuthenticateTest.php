@@ -14,7 +14,7 @@ beforeEach(function () {
     ]);
 });
 
-it('must provide a username and password to authenticate', function () {
+it('must provide a email and password to authenticate', function () {
     $postData = [];
 
     $response = $this->postJson(route('authenticate'), $postData);
