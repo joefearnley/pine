@@ -31,7 +31,7 @@ it('must provide a email to authenticate', function () {
     $postData = [
         'email' => '',
         'password' => $this->password,
-        'device_name' => $this->deviceName ,
+        'device_name' => $this->deviceName,
     ];
 
     $response = $this->postJson(route('authenticate'), $postData);
