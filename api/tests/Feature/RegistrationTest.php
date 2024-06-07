@@ -167,7 +167,7 @@ it('can create an account and access token', function () {
     ]);
 
     $this->assertDatabaseHas('personal_access_tokens', [
-        'tokenable_id' => $this->user->id,
+        'tokenable_id' => $responseData['user']['id'],
         'name' => $this->deviceName,
         'token' => hash('sha256', $token),
     ]);
