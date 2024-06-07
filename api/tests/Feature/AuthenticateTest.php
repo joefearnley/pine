@@ -17,9 +17,8 @@ beforeEach(function () {
 it('must provide a email and password to authenticate', function () {
     $postData = [];
 
-    $response = $this->postJson(route('authenticate'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('authenticate'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The email field is required.'],
             ['The password field is required.'],
@@ -34,9 +33,8 @@ it('must provide a email to authenticate', function () {
         'device_name' => $this->deviceName,
     ];
 
-    $response = $this->postJson(route('authenticate'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('authenticate'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The email field is required.'],
         )
@@ -53,9 +51,8 @@ it('must provide a password to authenticate', function () {
         'device_name' => $this->deviceName,
     ];
 
-    $response = $this->postJson(route('authenticate'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('authenticate'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The password field is required.'],
         )
@@ -72,9 +69,8 @@ it('must provide a device name to authenticate', function () {
         'device_name' => '',
     ];
 
-    $response = $this->postJson(route('authenticate'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('authenticate'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The device name field is required.'],
         )
@@ -107,4 +103,3 @@ it('authenticates a user and returns a token', function () {
         'token' => hash('sha256', $token),
     ]);
 });
-

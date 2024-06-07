@@ -15,9 +15,8 @@ beforeEach(function () {
 it('must provide a name, email, and password to create account', function () {
     $postData = [];
 
-    $response = $this->postJson(route('register'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('register'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The name field is required.'],
             ['The email field is required.'],
@@ -35,9 +34,9 @@ it('must provide a name to create account', function () {
         'device_name' => $this->deviceName,
     ];
 
-    $response = $this->postJson(route('register'), $postData);
 
-    $response->assertStatus(422)
+    $this->postJson(route('register'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The name field is required.'],
         )
@@ -57,9 +56,8 @@ it('must provide an email to create an account', function () {
         'device_name' => $this->deviceName,
     ];
 
-    $response = $this->postJson(route('register'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('register'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The email field is required.'],
         )
@@ -79,9 +77,8 @@ it('must provide a password to create an account', function () {
         'device_name' => $this->deviceName,
     ];
 
-    $response = $this->postJson(route('register'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('register'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The password field is required.'],
         )
@@ -101,9 +98,8 @@ it('must provide a password and password confirmation to create an account', fun
         'device_name' => $this->deviceName,
     ];
 
-    $response = $this->postJson(route('register'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('register'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The password field confirmation does not match.'],
         )
@@ -124,9 +120,8 @@ it('must provide a device name to create an account', function () {
         'device_name' => '',
     ];
 
-    $response = $this->postJson(route('register'), $postData);
-
-    $response->assertStatus(422)
+    $this->postJson(route('register'), $postData)
+        ->assertStatus(422)
         ->assertJsonFragment(
             ['The device name field is required.'],
         )

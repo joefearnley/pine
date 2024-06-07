@@ -4,9 +4,8 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
 it('must be authenticated to access user data', function () {
-    $response = $this->getJson(route('users.index'));
-
-    $response->assertStatus(401)
+    $this->getJson(route('users.index'))
+        ->assertStatus(401)
         ->assertJson([
             'message' => 'Unauthenticated.'
         ]);
@@ -17,9 +16,8 @@ it('user can see own data', function () {
 
     Sanctum::actingAs($user, ['*']);
 
-    $response = $this->getJson(route('users.index'));
-
-    $response->assertStatus(200)
+    $this->getJson(route('users.index'))
+        ->assertStatus(200)
         ->assertJsonFragment([
             'name' => $user->name,
             'email' => $user->email,

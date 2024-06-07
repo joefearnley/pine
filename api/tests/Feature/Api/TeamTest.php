@@ -6,14 +6,12 @@ use App\Models\Team;
 
 uses(RefreshDatabase::class);
 
-it('must be authenticated to access team index page ', function () {
-
-    $response = $this->get(route('teams.index'));
-
-    dd($response->decodeResponseJson());
-
-
-    $response->assertStatus(404);
+it('must be authenticated to access team data', function () {
+    $this->getJson(route('teams.index'))
+        ->assertStatus(401)
+        ->assertJson([
+            'message' => 'Unauthenticated.'
+        ]);
 });
 
 // it('team index page', function () {
