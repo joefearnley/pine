@@ -47,6 +47,9 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Get the team owned by the user.
+     */
     public function team(): HasOne
     {
         return $this->hasOne(Team::class);

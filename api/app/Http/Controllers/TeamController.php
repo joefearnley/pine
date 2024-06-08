@@ -20,35 +20,16 @@ class TeamController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreTeamRequest $request)
     {
-        //
-    }
+        $team = new Team();
+        $team->name = $request->name;
+        $team->user_id = $request->user()->id;
+        $team->save();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Team $team)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Team $team)
-    {
-        //
+        return response()->json($team);
     }
 
     /**

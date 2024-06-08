@@ -68,7 +68,7 @@ it('cannot access team data when no teams exist', function () {
 
     Sanctum::actingAs($user, ['*']);
 
-    $response = $this->getJson(route('teams.index'))
+    $this->getJson(route('teams.index'))
         ->assertStatus(200)
         ->assertJsonCount(0)
         ->assertJsonMissing([
