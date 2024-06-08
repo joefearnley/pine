@@ -14,9 +14,9 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->user());
+        $team = $request->user()->team;
 
-        return response()->json($request->user()->team);
+        return response()->json($team);
     }
 
     /**

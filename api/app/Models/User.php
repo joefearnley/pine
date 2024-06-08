@@ -47,7 +47,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function phone(): HasOne
+    public function team(): HasOne
     {
         return $this->hasOne(Team::class);
     }
