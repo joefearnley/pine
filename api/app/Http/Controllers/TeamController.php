@@ -49,6 +49,10 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
-        //
+        $team->delete();
+
+        return response()->json([
+            'message' => 'Team successfually deleted.',
+        ]);
     }
 }

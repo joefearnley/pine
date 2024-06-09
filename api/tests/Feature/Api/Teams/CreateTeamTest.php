@@ -37,8 +37,6 @@ it('can create a team', function () {
     $user = User::factory()->create();
     $teamName = 'Test Team';
 
-    Sanctum::actingAs($user, ['*']);
-
     $postData = [
         'name' => $teamName,
     ];

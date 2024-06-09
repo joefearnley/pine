@@ -8,9 +8,16 @@ use Laravel\Sanctum\Sanctum;
 uses(RefreshDatabase::class);
 
 it('requires a user to be authenitcated updating a team', function () {
-    $postData = [];
+    $user = User::factory()->create();
+    $team = Team::factory()->create([
+        'user_id' => $user->id,
+    ]);
 
-    $this->postJson(route('teams.store'), $postData)
+    $postData = [
+        'name' => 'New Test Team',
+    ];
+
+    $this->postJson(route('teams.store', $team), $postData)
         ->assertStatus(401)
         ->assertJson(['message' => 'Unauthenticated.']);
 });
@@ -42,8 +49,6 @@ it('can update a team name', function () {
 
     $newTeamName = 'New Test Team';
 
-    Sanctum::actingAs($user, ['*']);
-
     $postData = [
         'name' => $newTeamName,
     ];
@@ -70,8 +75,6 @@ it('can update a team age group', function () {
     ]);
 
     $ageGroup = 'U9';
-
-    Sanctum::actingAs($user, ['*']);
 
     $postData = [
         'name' => $team->name,
@@ -105,8 +108,6 @@ it('cannot update a team owned by a different account', function () {
     ]);
 
     $newTeamName = 'New Test Team';
-
-    Sanctum::actingAs($user, ['*']);
 
     $postData = [
         'team_id' => $otherTeam->id,
