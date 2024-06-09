@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('team_id')->constrained();
             $table->string('name');
             $table->integer('number');
             $table->boolean('is_playing')->default(false);
