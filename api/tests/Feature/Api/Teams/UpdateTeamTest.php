@@ -10,27 +10,9 @@ uses(RefreshDatabase::class);
 it('requires a user to be authenitcated updating a team', function () {
     $postData = [];
 
-    $response = $this->postJson(route('teams.store'), $postData)
+    $this->postJson(route('teams.store'), $postData)
         ->assertStatus(401)
         ->assertJson(['message' => 'Unauthenticated.']);
-});
-
-it('requires a team_id and name for updating a team', function () {
-    $user = User::factory()->create();
-    $team = Team::factory()->create([
-        'user_id' => $user->id,
-    ]);
-
-    $postData = [];
-
-    Sanctum::actingAs($user, ['*']);
-
-    $this->putJson(route('teams.update', $team), $postData)
-        ->assertStatus(422)
-        ->assertJsonFragment(
-            ['The team id field is required.'],
-            ['The name field is required.'],
-        );
 });
 
 it('requires a name for updating a team', function () {
@@ -40,7 +22,6 @@ it('requires a name for updating a team', function () {
     ]);
 
     $postData = [
-        'team_id' => $team->id,
         'name' => '',
     ];
 
@@ -49,32 +30,6 @@ it('requires a name for updating a team', function () {
     $this->putJson(route('teams.update', $team), $postData)
         ->assertStatus(422)
         ->assertJsonFragment(
-            ['The name field is required.'],
-        )
-        ->assertJsonMissing(
-            ['The team id field is required.'],
-        );;
-});
-
-it('requires a team_id for updating a team', function () {
-    $user = User::factory()->create();
-    $team = Team::factory()->create([
-        'user_id' => $user->id,
-    ]);
-
-    $postData = [
-        'team_id' => '',
-        'name' => $team->name,
-    ];
-
-    Sanctum::actingAs($user, ['*']);
-
-    $this->putJson(route('teams.update', $team), $postData)
-        ->assertStatus(422)
-        ->assertJsonFragment(
-            ['The team id field is required.'],
-        )
-        ->assertJsonMissing(
             ['The name field is required.'],
         );
 });
@@ -90,7 +45,6 @@ it('can update a team name', function () {
     Sanctum::actingAs($user, ['*']);
 
     $postData = [
-        'team_id' => $team->id,
         'name' => $newTeamName,
     ];
 
@@ -120,14 +74,13 @@ it('can update a team age group', function () {
     Sanctum::actingAs($user, ['*']);
 
     $postData = [
-        'team_id' => $team->id,
         'name' => $team->name,
         'age_group' => $ageGroup,
     ];
 
     Sanctum::actingAs($user, ['*']);
 
-    $response = $this->putJson(route('teams.update', $team), $postData)
+    $this->putJson(route('teams.update', $team), $postData)
         ->assertStatus(200)
         ->assertJsonFragment([
             'id' => $team->id,
