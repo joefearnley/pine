@@ -7,11 +7,9 @@ use Laravel\Sanctum\Sanctum;
 uses(RefreshDatabase::class);
 
 it('requires a user to be authenitcated creating a team', function () {
-    $user = User::factory()->create();
-    $teamName = 'Test Team';
 
     $postData = [
-        'name' => $teamName,
+        'name' => 'Test Team',
     ];
 
     $this->postJson(route('teams.store'), $postData)
