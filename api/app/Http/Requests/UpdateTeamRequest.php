@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Team;
 
 class UpdateTeamRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateTeamRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->id === $this->team->user_id;
     }
 
     /**
@@ -22,7 +23,8 @@ class UpdateTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'team_id' => 'required',
+            'name' => 'required',
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
-use App\Models\Team;
 use Laravel\Sanctum\Sanctum;
 
 uses(RefreshDatabase::class);

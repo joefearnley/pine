@@ -37,7 +37,11 @@ class TeamController extends Controller
      */
     public function update(UpdateTeamRequest $request, Team $team)
     {
-        //
+        $team->name = $request->name;
+        $team->age_group = $request->age_group;
+        $team->save();
+
+        return response()->json($team);
     }
 
     /**
