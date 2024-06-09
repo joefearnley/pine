@@ -6,6 +6,19 @@ use Laravel\Sanctum\Sanctum;
 
 uses(RefreshDatabase::class);
 
+it('requires a user to be authenitcated creating a team', function () {
+    $user = User::factory()->create();
+    $teamName = 'Test Team';
+
+    $postData = [
+        'name' => $teamName,
+    ];
+
+    $this->postJson(route('teams.store'), $postData)
+        ->assertStatus(401)
+        ->assertJson(['message' => 'Unauthenticated.']);
+});
+
 it('requires a name for creating a team', function () {
     $user = User::factory()->create();
 
@@ -25,6 +38,7 @@ it('can create a team', function () {
     $teamName = 'Test Team';
 
     Sanctum::actingAs($user, ['*']);
+
     $postData = [
         'name' => $teamName,
     ];
