@@ -10,7 +10,7 @@ use App\Models\Player;
 class PlayerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of players.
      */
     public function index(Request $request)
     {
@@ -20,15 +20,21 @@ class PlayerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new player.
      */
     public function store(StorePlayerRequest $request)
     {
-        //
+        $player = new Player();
+        $player->team_id = $request->team_id;
+        $player->name = $request->name;
+        $player->number = $request->number;
+        $player->save();
+
+        return response()->json($player->fresh());
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified player.
      */
     public function show(Player $player)
     {
@@ -36,7 +42,7 @@ class PlayerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified player in storage.
      */
     public function update(UpdatePlayerRequest $request, Player $player)
     {
@@ -44,7 +50,7 @@ class PlayerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified player from storage.
      */
     public function destroy(Player $player)
     {

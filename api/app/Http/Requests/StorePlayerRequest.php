@@ -11,7 +11,7 @@ class StorePlayerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StorePlayerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'team_id' => 'required',
+            'name' => 'required',
+            'number' => 'required',
         ];
     }
 }
