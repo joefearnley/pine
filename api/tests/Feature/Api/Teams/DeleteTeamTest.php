@@ -13,7 +13,7 @@ it('requires a user to be authenitcated when deleting a team', function () {
         'user_id' => $user->id,
     ]);
 
-    $this->postJson(route('teams.store', $team))
+    $this->deleteJson(route('teams.destroy', $team))
         ->assertStatus(401)
         ->assertJson(['message' => 'Unauthenticated.']);
 });
