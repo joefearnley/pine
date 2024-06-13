@@ -37,7 +37,7 @@ it('can delete a player', function () {
 
     Sanctum::actingAs($user, ['*']);
 
-    $this->deleteJson(route('players.destroy', $player))
+    $response = $this->deleteJson(route('players.destroy', $player))
         ->assertStatus(200)
         ->assertJson(['message' => 'Player successfually deleted.']);
 
@@ -49,16 +49,20 @@ it('can delete a player', function () {
     ]);
 });
 
-// it('cannot delete a team owned by a different account', function () {
-//     $user = User::factory()->create();
-//     $otherUser = User::factory()->create();
+it('cannot delete a player owned by a different account', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
 
-//     $otherTeam = Team::factory()->create([
-//         'user_id' => $otherUser->id,
-//     ]);
+    $otherTeam = Team::factory()->create([
+        'user_id' => $otherUser->id,
+    ]);
 
-//     Sanctum::actingAs($user, ['*']);
+    $otherPlayer = Player::factory()->create([
+        'team_id' => $otherTeam->id,
+    ]);
 
-//     $this->putJson(route('teams.destroy', $otherTeam))
-//         ->assertStatus(403);
-// });
+    Sanctum::actingAs($user, ['*']);
+
+    $response = $this->deleteJson(route('players.destroy', $otherPlayer))
+        ->assertStatus(403);
+});

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePlayerRequest;
 use App\Http\Requests\UpdatePlayerRequest;
+use App\Http\Requests\DeletePlayerRequest;
 use App\Models\Player;
 
 class PlayerController extends Controller
@@ -52,8 +53,12 @@ class PlayerController extends Controller
     /**
      * Remove the specified player from storage.
      */
-    public function destroy(Player $player)
+    public function destroy(DeletePlayerRequest $request, Player $player)
     {
-        //
+        $player->delete();
+
+        return response()->json([
+            'message' => 'Player successfually deleted.',
+        ]);
     }
 }
