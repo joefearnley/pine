@@ -63,6 +63,6 @@ it('cannot delete a player owned by a different account', function () {
 
     Sanctum::actingAs($user, ['*']);
 
-    $response = $this->deleteJson(route('players.destroy', $otherPlayer))
+    $this->deleteJson(route('players.destroy', $otherPlayer))
         ->assertStatus(403);
 });
