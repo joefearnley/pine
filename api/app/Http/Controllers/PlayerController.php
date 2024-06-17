@@ -47,7 +47,6 @@ class PlayerController extends Controller
      */
     public function update(UpdatePlayerRequest $request, Player $player)
     {
-        // dd($request->name);
         $player->name = $request->name;
         $player->number = $request->number;
         $player->is_playing = $request->is_playing ?? $player->is_playing;
