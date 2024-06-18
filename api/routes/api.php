@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PlayerStatusController;
 
 Route::prefix('v1')->group(function () {
 
@@ -19,5 +20,8 @@ Route::prefix('v1')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('teams', TeamController::class);
         Route::resource('players', PlayerController::class);
+
+        Route::patch('/players/status/{player}', [PlayerStatusController::class, 'changePlayingStatus'])
+            ->name('players.status');
     });
 });
