@@ -70,3 +70,19 @@ it('can move a player to the field', function () {
         'is_playing' => true,
     ]);
 });
+
+it('can remove a player from the field', function () {
+    $postData = [
+        'is_playing' => false,
+    ];
+
+    Sanctum::actingAs($this->user, ['*']);
+
+    $this->patchJson(route('players.status', $this->player), $postData)
+        ->assertStatus(200);
+
+    $this->assertDatabaseHas('players', [
+        'id' => $this->player->id,
+        'is_playing' => false,
+    ]);
+});
