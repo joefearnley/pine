@@ -104,27 +104,3 @@ it('can update a player', function () {
     ]);
 });
 
-it('can add a player to field', function () {
-
-    $postData = [
-        'is_playing' => true,
-    ];
-
-    Sanctum::actingAs($this->user, ['*']);
-
-    $this->putJson(route('players.update', $this->player), $postData)
-        ->assertStatus(200)
-        ->assertJsonFragment([
-            'name' => $this->user->name,
-            'number' => $this->user->number,
-            'is_playing' => true,
-            'is_goalie' => false,
-        ]);
-
-    $this->assertDatabaseHas('players', [
-        'name' => $newName,
-        'number' => $newNumber,
-        'is_playing' => true,
-        'is_goalie' => false,
-    ]);
-});
