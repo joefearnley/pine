@@ -26,6 +26,10 @@ const HomePage = () => {
 
     async function movePlayerToField(evt) {
         updatePlayerPlaying(evt.item.dataset.id, true);
+
+        featch(
+            import.meta.env.VITE_SUPABASE_URL
+
     };
 
     async function movePlayerToBench(evt) {
@@ -43,13 +47,27 @@ const HomePage = () => {
     }
 
     async function setPlayers() {
-        const { data } = await supabase.from('players').select();
-        let playing = data.filter(item => item.is_playing);
-        let onTheBench = data.filter(item => !item.is_playing);
+        
+        console.log('sertting players');
 
-        setPlayersPlaying(playing);
-        setPlayersNotPlaying(onTheBench);
-        setLoading(false);
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+        
+        const data = await response.json();
+
+        console.log(data);
+
+        // let playing = data.filter(item => item.is_playing);
+        // let onTheBench = data.filter(item => !item.is_playing);
+
+        // setPlayersPlaying(playing);
+        // setPlayersNotPlaying(onTheBench);
+        // setLoading(false);
     }
 
     return (
