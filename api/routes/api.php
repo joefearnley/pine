@@ -21,7 +21,10 @@ Route::prefix('v1')->group(function () {
         Route::resource('teams', TeamController::class);
         Route::resource('players', PlayerController::class);
 
-        Route::patch('/players/status/{player}', [PlayerStatusController::class, 'changePlayingStatus'])
+        Route::patch('/players/status/{player}', [PlayerStatusController::class, 'setPlayerPlayingStatus'])
             ->name('players.status');
+
+        Route::patch('/players/goalie/{player}', [PlayerStatusController::class, 'setPlayerGoalieStatus'])
+            ->name('players.goalie-status');
     });
 });
