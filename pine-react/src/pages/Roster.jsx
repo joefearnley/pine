@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient'
 
 import {
     f7,
@@ -25,9 +24,9 @@ const RosterPage = () => {
     }, []);
 
     async function getPlayers() {
-        const { data } = await supabase.from("players").select();
-        setPlayers(data);
-        setLoading(false);
+        // const { data } = await supabase.from("players").select();
+        // setPlayers(data);
+        // setLoading(false);
     }
 
     return (

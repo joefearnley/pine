@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient'
 import { ReactSortable } from "react-sortablejs";
 import {
     Page,
@@ -26,10 +25,6 @@ const HomePage = () => {
 
     async function movePlayerToField(evt) {
         updatePlayerPlaying(evt.item.dataset.id, true);
-
-        featch(
-            import.meta.env.VITE_SUPABASE_URL
-
     };
 
     async function movePlayerToBench(evt) {
