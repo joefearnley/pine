@@ -43,19 +43,19 @@ const HomePage = () => {
 
     async function setPlayers() {
         
-        console.log('sertting players');
+        // console.log('sertting players');
 
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        });
+        // const response = await fetch(url, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         // 'Content-Type': 'application/x-www-form-urlencoded',
+        //     },
+        // });
         
-        const data = await response.json();
+        // const data = await response.json();
 
-        console.log(data);
+        // console.log(data);
 
         // let playing = data.filter(item => item.is_playing);
         // let onTheBench = data.filter(item => !item.is_playing);
