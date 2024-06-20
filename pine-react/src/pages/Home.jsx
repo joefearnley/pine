@@ -134,6 +134,9 @@ const HomePage = () => {
                     iconMd="material:list">
                     Roster
                 </Link>
+                <Link href="/signup/">
+                    Sign Up
+                </Link>
             </Toolbar>
         </Page>
     )

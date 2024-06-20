@@ -1,5 +1,6 @@
 import HomePage from './pages/Home.jsx';
 import RosterPage from './pages/Roster.jsx';
+import SignUpPage from './pages/SignUp.jsx';
 
 export default [
     {
@@ -9,5 +10,9 @@ export default [
     {
         path: '/roster/',
         component: RosterPage,
+    },
+    {
+        path: '/signup/',
+        component: SignUpPage,
     },
 ];
