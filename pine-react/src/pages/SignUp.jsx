@@ -4,94 +4,70 @@ import {
     Navbar,
     Toolbar,
     Link,
-    Block,
-    BlockTitle,
     List,
+    Block,
     ListInput,
-    ListGroup,
-    ListItem,
-    Preloader
+    Button,
 } from 'framework7-react';
 
 const SignUpPage = () => {
     const [name, setName] = useState([]);
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
-
-    console.log('loaing page..');
+    const registerAccountUrl = `${import.meta.env.VITE_BASE_API_URL}/account/register`;
 
     const registerAccount = async function() {
-        
+        const data = {
+            email,
+            password
+        };
+
+        const response = await fetch(registerAccountUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        console.log("Success: ", result);
     }
 
     return (
         <Page name="signup">
-            <Navbar title="Sign Up" />
+            <Navbar title="Create an Account" />
 
-            <BlockTitle>Create an Account</BlockTitle>
             <List strongIos dividersIos insetIos>
-            <ListInput
-                label="Name"
-                type="text"
-                placeholder="Your name"
-                info="Default validation"
-                required
-                validate
-                clearButton
-            >
-            </ListInput>
+                <ListInput
+                    label="Email Address"
+                    type="email"
+                    placeholder="enter email address"
+                    required
+                    validate
+                    clearButton
+                    onChange={e => setEmail(e.target.value)}
+                >
+                </ListInput>
 
-            <ListInput
-                label="Fruit"
-                type="text"
-                placeholder="Type 'apple' or 'banana'"
-                required
-                validate
-                pattern="apple|banana"
-                clearButton
-            >
-                <span slot="info">
-                Pattern validation (<b>apple|banana</b>)
-                </span>
-            </ListInput>
-
-            <ListInput
-                label="E-mail"
-                type="email"
-                placeholder="Your e-mail"
-                info="Default e-mail validation"
-                required
-                validate
-                clearButton
-            >
-            </ListInput>
-
-            <ListInput
-                label="URL"
-                type="url"
-                placeholder="Your URL"
-                info="Default URL validation"
-                required
-                validate
-                clearButton
-            >
-            </ListInput>
-
-            <ListInput
-                label="Number"
-                type="text"
-                placeholder="Enter number"
-                info="With custom error message"
-                errorMessage="Only numbers please!"
-                required
-                validate
-                pattern="[0-9]*"
-                clearButton
-            >
-            </ListInput>
+                <ListInput
+                    label="Password"
+                    type="password"
+                    placeholder="enter your password"
+                    required
+                    validate
+                    clearButton
+                    onChange={e => setPassword(e.target.value)}
+                >
+                </ListInput>
             </List>
-        
 
+            <Block>
+                <Button large fill onClick={registerAccount}>
+                    Create Account
+                </Button>
+            </Block>
+    
             <Toolbar bottom tabbar>
                 <Link 
                     href="/"
