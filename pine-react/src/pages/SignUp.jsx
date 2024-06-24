@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 import {
     Page,
     Navbar,
-    Toolbar,
-    Link,
     List,
     Block,
     ListInput,
@@ -16,11 +15,18 @@ const SignUpPage = () => {
     const [password, setPassword] = useState([]);
     const registerAccountUrl = `${import.meta.env.VITE_BASE_API_URL}/account/register`;
 
+
+
     const registerAccount = async function() {
         const data = {
+            name,
             email,
             password
         };
+
+        // const response = await axios.get(registerAccountUrl).then(response => {
+        //     // Login...
+        // });
 
         const response = await fetch(registerAccountUrl, {
             method: 'POST',
@@ -39,6 +45,16 @@ const SignUpPage = () => {
             <Navbar title="Create an Account" />
 
             <List strongIos dividersIos insetIos>
+            <ListInput
+                    label="Name"
+                    type="text"
+                    placeholder="enter full name"
+                    required
+                    validate
+                    clearButton
+                    onChange={e => setName(e.target.value)}
+                >
+                </ListInput>
                 <ListInput
                     label="Email Address"
                     type="email"
@@ -67,16 +83,6 @@ const SignUpPage = () => {
                     Create Account
                 </Button>
             </Block>
-    
-            <Toolbar bottom tabbar>
-                <Link 
-                    href="/"
-                    active
-                    iconIos="f7:house_fill"
-                    iconMd="material:home">
-                    Home
-                </Link>
-            </Toolbar>
         </Page>
     )
 };
