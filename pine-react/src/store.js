@@ -1,5 +1,14 @@
 // First import createStore function from Framework7 core
 import { createStore } from 'framework7/lite';
+import { LocalStorage } from 'lowdb/browser'
+
+const pineDB = new LowSync(new LocalStorage('pine_db   '), {})
+
+pineDB.data = {
+    teams: [],
+    players: [],
+}
+db.write();
 
 const store = createStore({
     state: {
