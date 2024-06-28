@@ -1,6 +1,7 @@
 // First import createStore function from Framework7 core
 import { createStore } from 'framework7/lite';
-import { LocalStorage } from 'lowdb/browser'
+import { LocalStorage } from 'lowdb/browser';
+import axios from 'axios';
 
 const pineDB = new LowSync(new LocalStorage('pine_db   '), {})
 
@@ -8,6 +9,7 @@ pineDB.data = {
     teams: [],
     players: [],
 }
+
 db.write();
 
 const store = createStore({
@@ -19,12 +21,10 @@ const store = createStore({
         getPlayers({ state }) {
             state.loading = true;
 
-            fetch('./data/players.json')
-                .then((res) => res.json())
-                .then((players) => {
-                    state.players = players;
-                    state.loading = false;
-                });
+            pineDB.read();
+
+            state.players = pineDB.players;
+            state.loading = false;
         },
     },
     getters: {
