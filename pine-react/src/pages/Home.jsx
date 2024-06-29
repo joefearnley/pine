@@ -20,49 +20,20 @@ const HomePage = () => {
 
     useEffect(() => {
         setLoading(true);
-        setPlayers();
+        // setPlayers();
     }, []);
 
-    async function movePlayerToField(evt) {
-        updatePlayerPlaying(evt.item.dataset.id, true);
+    function movePlayerToField(id) {
+        updatePlayerPlaying(id, true);
     };
 
-    async function movePlayerToBench(evt) {
-        updatePlayerPlaying(evt.item.dataset.id, false);
+    function movePlayerToBench(id) {
+        updatePlayerPlaying(id, false);
     };
 
-    async function updatePlayerPlaying(playerId, playing) {
-        const { data, error } = await supabase
-            .from('players')
-            .update({ is_playing: playing })
-            .eq('id', playerId);
-
-        console.log(data);
-        console.log(error);
-    }
-
-    async function setPlayers() {
-        
-        // console.log('sertting players');
-
-        // const response = await fetch(url, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         // 'Content-Type': 'application/x-www-form-urlencoded',
-        //     },
-        // });
-        
-        // const data = await response.json();
-
+    function updatePlayerPlaying(playerId, playing) {
         // console.log(data);
-
-        // let playing = data.filter(item => item.is_playing);
-        // let onTheBench = data.filter(item => !item.is_playing);
-
-        // setPlayersPlaying(playing);
-        // setPlayersNotPlaying(onTheBench);
-        // setLoading(false);
+        // console.log(error);
     }
 
     return (
@@ -133,9 +104,6 @@ const HomePage = () => {
                     iconIos="f7:list_dash"
                     iconMd="material:list">
                     Roster
-                </Link>
-                <Link href="/signup/">
-                    Sign Up
                 </Link>
             </Toolbar>
         </Page>
