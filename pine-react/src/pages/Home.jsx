@@ -10,8 +10,10 @@ import {
     List,
     ListGroup,
     ListItem,
-    Preloader
+    Preloader,
+    useStore
 } from 'framework7-react';
+import store from '../store.js';
 
 const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
@@ -20,7 +22,9 @@ const HomePage = () => {
 
     useEffect(() => {
         setLoading(true);
-        // setPlayers();
+        store.dispatch('getPlayers');
+        useStore('players');
+        // setPlayersPlaying(store.state.players);
     }, []);
 
     function movePlayerToField(id) {
