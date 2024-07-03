@@ -20,12 +20,17 @@ const HomePage = () => {
     const [playersNotPlaying, setPlayersNotPlaying] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    let allPlayers = useStore('players');
+
     useEffect(() => {
         setLoading(true);
         store.dispatch('getPlayers');
-        useStore('players');
-        // setPlayersPlaying(store.state.players);
-    }, []);
+
+        setPlayersPlaying(allPlayers.filter(player => player.isPlaying));
+        setPlayersNotPlaying(allPlayers.filter(player => !player.isPlaying));
+
+        setLoading(false);
+    }, [allPlayers]);
 
     function movePlayerToField(id) {
         updatePlayerPlaying(id, true);

@@ -4,8 +4,57 @@ import { LowSync } from 'lowdb';
 import { LocalStorage } from 'lowdb/browser';
 
 const defaultData = {
-    teams: [],
-    players: [],
+    teams: [
+        {
+            "name": 'Team 1'
+        }
+    ],
+    players: [
+        {
+            "id": 0,
+            "name": "Asher",
+            "number": 13,
+            "isPlaying": true
+        },
+        {
+            "id": 1,
+            "name": "Bode",
+            "number": 12,
+            "isPlaying": true
+        },
+        {
+            "id": 2,
+            "name": "Deezhon",
+            "number": 45,
+            "isPlaying": true
+        },
+        {
+            "id": 3,
+            "name": "Ewan",
+            "number": 22,
+            "isPlaying": true
+        },
+        {
+            "id": 4,
+            "name": "Harrison",
+            "isPlaying": true
+        },
+        {
+            "id": 5,
+            "name": "JahReekis",
+            "isPlaying": true
+        },
+        {
+            "id": 6,
+            "name": "Jayce",
+            "isPlaying": false
+        },
+        {
+            "id": 7,
+            "name": "Jase",
+            "isPlaying": true
+        }
+    ],
 };
 
 const pineDB = new LowSync(new LocalStorage('pine_db'), defaultData);
