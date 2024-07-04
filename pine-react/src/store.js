@@ -58,6 +58,7 @@ const defaultData = {
 };
 
 const pineDB = new LowSync(new LocalStorage('pine_db'), defaultData);
+pineDB.write()
 
 const store = createStore({
     state: {

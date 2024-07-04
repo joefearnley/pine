@@ -17,28 +17,34 @@ import store from '../store.js';
 
 const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
-    const [playersNotPlaying, setPlayersNotPlaying] = useState([]);
+    const [playersOnBench, setPlayersOnBench] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    let allPlayers = useStore('players');
+    // let playersPlaying = useStore('playersPlaying');
+    // let playersOnBench = useStore('playersOnBench');
+
+    // setPlayersPlaying(useStore('playersPlaying'));
+    // setPlayersOnBench(useStore('playersOnBench'));
 
     useEffect(() => {
         setLoading(true);
         store.dispatch('getPlayers');
 
-        setPlayersPlaying(allPlayers.filter(player => player.isPlaying));
-        setPlayersNotPlaying(allPlayers.filter(player => !player.isPlaying));
+        // setPlayersPlaying(allPlayers.filter(player => player.isPlaying));
+        // setPlayersNotPlaying(allPlayers.filter(player => !player.isPlaying));
 
         setLoading(false);
-    }, [allPlayers]);
+    }, []);
 
     function movePlayerToField(id) {
-        updatePlayerPlaying(id, true);
-    };
+        console.log('moving player to field');
+        // updatePlayerPlaying(id, true);
+    }
 
     function movePlayerToBench(id) {
-        updatePlayerPlaying(id, false);
-    };
+        console.log('moving player to bench');
+        // updatePlayerPlaying(id, false);
+    }
 
     function updatePlayerPlaying(playerId, playing) {
         // console.log(data);
@@ -55,7 +61,7 @@ const HomePage = () => {
                 </Block>
             )}
             
-            {playersNotPlaying.length && (
+            {playersPlaying.length && (
                 <List dividersIos simpleList strong outline>
                     <ListGroup>
                         <ReactSortable
@@ -65,9 +71,9 @@ const HomePage = () => {
                             onAdd={movePlayerToField}
                         >
                             {playersPlaying.map((player) => (
-                                <li key={player.id}>
+                                <ListItem key={player.id}>
                                     {player.name}
-                                </li>
+                                </ListItem>
                             ))}
                         </ReactSortable>
                     </ListGroup>
@@ -81,19 +87,19 @@ const HomePage = () => {
                 </Block>
             )}
 
-            {playersNotPlaying.length && (
+            {playersOnBench.length && (
                 <List dividersIos simpleList strong outline>
                     <ListGroup>
                         <ReactSortable
-                            list={playersNotPlaying}
-                            setList={setPlayersNotPlaying}
+                            list={playersOnBench}
+                            setList={setPlayersOnBench}
                             group="sharedGroup"
                             onAdd={movePlayerToBench}
                         >
-                            {playersNotPlaying.map((player) => (
-                                <li key={player.id}>
+                            {playersOnBench.map((player) => (
+                                <ListItem key={player.id}>
                                     {player.name}
-                                </li>
+                                </ListItem>
                             ))}
                         </ReactSortable>
                     </ListGroup>
@@ -113,6 +119,12 @@ const HomePage = () => {
                     iconIos="f7:list_dash"
                     iconMd="material:list">
                     Roster
+                </Link>
+                <Link 
+                    href="/team/"
+                    iconIos="f7:list_dash"
+                    iconMd="material:list">
+                    Team
                 </Link>
             </Toolbar>
         </Page>
