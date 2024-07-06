@@ -23,7 +23,7 @@ const HomePage = () => {
     // let playersPlaying = useStore('playersPlaying');
     // let playersOnBench = useStore('playersOnBench');
 
-    // setPlayersPlaying(useStore('playersPlaying'));
+    setPlayersPlaying(useStore('playersPlaying'));
     // setPlayersOnBench(useStore('playersOnBench'));
 
     useEffect(() => {
