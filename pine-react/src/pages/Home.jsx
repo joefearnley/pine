@@ -18,22 +18,14 @@ import store from '../store.js';
 const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
     const [playersOnBench, setPlayersOnBench] = useState([]);
-    const [loading, setLoading] = useState(false);
 
-    // let playersPlaying = useStore('playersPlaying');
-    // let playersOnBench = useStore('playersOnBench');
-
-    setPlayersPlaying(useStore('playersPlaying'));
-    // setPlayersOnBench(useStore('playersOnBench'));
+    let allPlayers = useStore('players');
 
     useEffect(() => {
-        setLoading(true);
         store.dispatch('getPlayers');
 
-        // setPlayersPlaying(allPlayers.filter(player => player.isPlaying));
-        // setPlayersNotPlaying(allPlayers.filter(player => !player.isPlaying));
-
-        setLoading(false);
+        setPlayersPlaying(allPlayers.filter(player => player.isPlaying));
+        setPlayersOnBench(allPlayers.filter(player => !player.isPlaying));
     }, []);
 
     function movePlayerToField(id) {
@@ -55,7 +47,7 @@ const HomePage = () => {
         <Page name="home">
             <Navbar title="Home" />
             <BlockTitle>Playing</BlockTitle>
-            {loading && (
+            {store.loading && (
                 <Block className="text-align-center">
                     <Preloader />
                 </Block>
@@ -81,7 +73,7 @@ const HomePage = () => {
             )}
     
             <BlockTitle>Bench</BlockTitle>
-            {loading && (
+            {store.loading && (
                 <Block className="text-align-center">
                     <Preloader />
                 </Block>
