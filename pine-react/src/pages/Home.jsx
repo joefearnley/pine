@@ -20,6 +20,8 @@ const HomePage = () => {
     const [playersOnBench, setPlayersOnBench] = useState([]);
 
     let allPlayers = useStore('players');
+    let allPlayersPlaying = useStore('playersPlaying');
+    let allPlayersOnBench = useStore('playersOnBench');
 
     useEffect(() => {
         store.dispatch('getPlayers');

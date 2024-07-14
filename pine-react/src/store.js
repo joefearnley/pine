@@ -10,8 +10,8 @@ const store = createStore({
         getPlayers({ state }) {
             state.loading = true;
 
-            state.team = localStorage.getItem('pinedb-team') || [];
-            state.players = localStorage.getItem('pinedb-players') || [];
+            state.team = JSON.parse(localStorage.getItem('pinedb-team')) || {};
+            state.players = JSON.parse(localStorage.getItem('pinedb-players')) || [];
 
             state.loading = false;
         },
