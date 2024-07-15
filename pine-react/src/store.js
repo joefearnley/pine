@@ -7,7 +7,7 @@ const store = createStore({
         players: [],
     },
     actions: {
-        getPlayers({ state }) {
+        loadPlayers({ state }) {
             state.loading = true;
 
             state.team = JSON.parse(localStorage.getItem('pinedb-team')) || {};

@@ -19,30 +19,24 @@ const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
     const [playersOnBench, setPlayersOnBench] = useState([]);
 
-    let allPlayers = useStore('players');
-    let allPlayersPlaying = useStore('playersPlaying');
-    let allPlayersOnBench = useStore('playersOnBench');
+    const initialPlayersPlaying = useStore('playersPlaying');
+    const initialPlayersOnBench = useStore('playersOnBench');
 
     useEffect(() => {
-        store.dispatch('getPlayers');
+        store.dispatch('loadPlayers');
 
-        setPlayersPlaying(allPlayers.filter(player => player.isPlaying));
-        setPlayersOnBench(allPlayers.filter(player => !player.isPlaying));
+        setPlayersPlaying(initialPlayersPlaying);
+        setPlayersOnBench(initialPlayersOnBench);
     }, []);
 
     function movePlayerToField(id) {
-        console.log('moving player to field');
+        // console.log('moving player to field');
         // updatePlayerPlaying(id, true);
     }
 
     function movePlayerToBench(id) {
-        console.log('moving player to bench');
+        // console.log('moving player to bench');
         // updatePlayerPlaying(id, false);
-    }
-
-    function updatePlayerPlaying(playerId, playing) {
-        // console.log(data);
-        // console.log(error);
     }
 
     return (
