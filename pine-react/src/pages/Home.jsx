@@ -27,16 +27,18 @@ const HomePage = () => {
 
         setPlayersPlaying(initialPlayersPlaying);
         setPlayersOnBench(initialPlayersOnBench);
-    }, []);
+    }, [initialPlayersPlaying, initialPlayersOnBench]);
 
-    function movePlayerToField(id) {
-        // console.log('moving player to field');
-        // updatePlayerPlaying(id, true);
+    function movePlayerToField(evt) {
+        console.log(evt.item);
+
+        store.dispatch('updatePlayerPlaying', evt.item, true);
     }
 
-    function movePlayerToBench(id) {
-        // console.log('moving player to bench');
-        // updatePlayerPlaying(id, false);
+    function movePlayerToBench(evt) {
+        console.log(evt.item);
+
+        store.dispatch('updatePlayerPlaying', evt.item, false);
     }
 
     return (
