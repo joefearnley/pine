@@ -16,13 +16,15 @@ const store = createStore({
             state.loading = false;
         },
         updatePlayerPlaying({ state, dispatch }, playerId, isPlaying) {
-            console.log(playerId);
+            // console.log(playerId);
             let playerIndex = state.players.findIndex(player => {
-                console.log(player);
+                // console.log(player);
+                // console.log(player.id);
+                // console.log(playerId);
                 return player.id === playerId;
             });
 
-            console.log(playerIndex);
+            // console.log(playerIndex);
 
             // state.players[playerIndex].isPlaying = isPlaying;
             // localStorage.setItem('pinedb-players', JSON.stringify(state.players));

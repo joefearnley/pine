@@ -30,13 +30,12 @@ const HomePage = () => {
     }, [initialPlayersPlaying, initialPlayersOnBench]);
 
     function movePlayerToField(evt) {
-        console.log(evt.item);
-
         store.dispatch('updatePlayerPlaying', evt.item, true);
     }
 
     function movePlayerToBench(evt) {
-        console.log(evt.item);
+        console.log(evt);
+        // console.log(evt.dataset.playerId);
 
         store.dispatch('updatePlayerPlaying', evt.item, false);
     }
@@ -61,8 +60,10 @@ const HomePage = () => {
                             onAdd={movePlayerToField}
                         >
                             {playersPlaying.map((player) => (
-                                <ListItem key={player.id}>
-                                    {player.name}
+                                <ListItem 
+                                    key={player.id}
+                                    title={player.name}
+                                    data-player-id={player.id}>
                                 </ListItem>
                             ))}
                         </ReactSortable>
