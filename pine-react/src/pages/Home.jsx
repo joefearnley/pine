@@ -3,17 +3,15 @@ import { ReactSortable } from "react-sortablejs";
 import {
     Page,
     Navbar,
-    Toolbar,
-    Link,
     Block,
     BlockTitle,
     List,
     ListGroup,
     Preloader,
-    Icon,
-    useStore,
+    useStore
 } from 'framework7-react';
 import store from '../store.js';
+import PageToolbar from '../components/PageLinks.jsx';
 import PlayerListItem from '../components/PlayerListItem.jsx';
 
 const HomePage = () => {
@@ -105,30 +103,7 @@ const HomePage = () => {
                 </List>
              )}
 
-            <Toolbar bottom tabbar>
-                <Link 
-                    href="/"
-                    active
-                    >
-                        <Icon
-                            ios="f7:house_fill"
-                            md="material:home"
-                            size="20px" />
-                    Home
-                </Link>
-                <Link 
-                    href="/roster/"
-                    iconIos="f7:list_dash"
-                    iconMd="material:list">
-                    Roster
-                </Link>
-                <Link 
-                    href="/team/"
-                    iconIos="f7:info_circle_fill"
-                    iconMd="material:info">
-                    Team
-                </Link>
-            </Toolbar>
+            <PageToolbar page="Home" />
         </Page>
     )
 };

@@ -3,8 +3,6 @@ import {
     f7,
     Page,
     Navbar,
-    Toolbar,
-    Link,
     List,
     ListGroup,
     BlockTitle,
@@ -13,6 +11,7 @@ import {
     useStore,
 } from 'framework7-react';
 import store from '../store.js';
+import PageToolbar from '../components/PageLinks.jsx';
 import PlayerListItem from '../components/PlayerListItem.jsx';
 
 const RosterPage = () => {
@@ -34,7 +33,7 @@ const RosterPage = () => {
                 <List dividersIos simpleList strong outline>
                     <ListGroup>
                         {players.map((player) => (
-                            <PlayerListItem 
+                            <PlayerListItem
                                 key={player.id}
                                 title={player.name} 
                                 playerId={player.id}>
@@ -50,21 +49,7 @@ const RosterPage = () => {
                 </Block>
             )}
 
-            <Toolbar bottom tabbar>
-                <Link 
-                    href="/"
-                    active
-                    iconIos="f7:house_fill"
-                    iconMd="material:home"> 
-                    Home
-                </Link>
-                <Link 
-                    href="/roster/"
-                    iconIos="f7:list_dash"
-                    iconMd="material:list">
-                    Roster
-                </Link>
-            </Toolbar>
+            <PageToolbar page="Roster" />
         </Page>
     )
 };
