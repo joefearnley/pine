@@ -14,6 +14,7 @@ import {
     useStore
 } from 'framework7-react';
 import store from '../store.js';
+import PlayerListItem from '../components/PlayerListItem.jsx';
 
 const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
@@ -29,15 +30,18 @@ const HomePage = () => {
         setPlayersOnBench(initialPlayersOnBench);
     }, [initialPlayersPlaying, initialPlayersOnBench]);
 
-    function movePlayerToField(evt) {
-        store.dispatch('updatePlayerPlaying', evt.item, true);
+    const movePlayerToField = evt => {
+        store.dispatch('updatePlayerPlaying', { 
+            playerId: evt.item.dataset.playerId,
+            isPlaying: true
+        });
     }
 
-    function movePlayerToBench(evt) {
-        console.log(evt);
-        // console.log(evt.dataset.playerId);
-
-        store.dispatch('updatePlayerPlaying', evt.item, false);
+    const movePlayerToBench = evt => {
+        store.dispatch('updatePlayerPlaying', { 
+            playerId: evt.item.dataset.playerId,
+            isPlaying: false
+        });
     }
 
     return (
@@ -58,13 +62,14 @@ const HomePage = () => {
                             setList={setPlayersPlaying}
                             group="sharedGroup"
                             onAdd={movePlayerToField}
+                            onRemove={movePlayerToBench}
                         >
                             {playersPlaying.map((player) => (
-                                <ListItem 
+                                <PlayerListItem 
                                     key={player.id}
                                     title={player.name}
-                                    data-player-id={player.id}>
-                                </ListItem>
+                                    playerId={player.id}>
+                                </PlayerListItem>
                             ))}
                         </ReactSortable>
                     </ListGroup>
@@ -86,11 +91,14 @@ const HomePage = () => {
                             setList={setPlayersOnBench}
                             group="sharedGroup"
                             onAdd={movePlayerToBench}
+                            onRemove={movePlayerToField}
                         >
                             {playersOnBench.map((player) => (
-                                <ListItem key={player.id}>
-                                    {player.name}
-                                </ListItem>
+                                <PlayerListItem 
+                                    key={player.id}
+                                    title={player.name}
+                                    playerId={player.id}>
+                                </PlayerListItem>
                             ))}
                         </ReactSortable>
                     </ListGroup>
