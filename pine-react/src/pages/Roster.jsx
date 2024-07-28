@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import {
     f7,
     Page,
@@ -8,26 +7,24 @@ import {
     Link,
     List,
     ListGroup,
-    ListItem,
     BlockTitle,
     Block,
     Preloader,
+    useStore,
 } from 'framework7-react';
+import store from '../store.js';
+import PlayerListItem from '../components/PlayerListItem.jsx';
 
 const RosterPage = () => {
     const [players, setPlayers] = useState([]);
-    const [loading, setLoading] = useState(false);
+
+    const allPlayers = useStore('players');
 
     useEffect(() => {
-        setLoading(true);
-        getPlayers();
-    }, []);
+        store.dispatch('loadPlayers');
 
-    async function getPlayers() {
-        // const { data } = await supabase.from("players").select();
-        // setPlayers(data);
-        // setLoading(false);
-    }
+        setPlayers(allPlayers);
+    }, [allPlayers]);
 
     return (
         <Page name="roster">
@@ -36,16 +33,22 @@ const RosterPage = () => {
             {players.length && (
                 <List dividersIos simpleList strong outline>
                     <ListGroup>
-                        {players.map((item) => (
-                            <ListItem key={item.id} title={item.name} />
+                        {players.map((player) => (
+                            <PlayerListItem 
+                                key={player.id}
+                                title={player.name} 
+                                playerId={player.id}>
+                            </PlayerListItem>
                         ))}
                     </ListGroup>
                 </List>
             )}
 
-            <Block className="text-align-center">
-            {loading && <Preloader />}
-            </Block>
+            {store.loading && (
+                <Block className="text-align-center">
+                    <Preloader />
+                </Block>
+            )}
 
             <Toolbar bottom tabbar>
                 <Link 

@@ -9,9 +9,9 @@ import {
     BlockTitle,
     List,
     ListGroup,
-    ListItem,
     Preloader,
-    useStore
+    Icon,
+    useStore,
 } from 'framework7-react';
 import store from '../store.js';
 import PlayerListItem from '../components/PlayerListItem.jsx';
@@ -109,8 +109,11 @@ const HomePage = () => {
                 <Link 
                     href="/"
                     active
-                    iconIos="f7:house_fill"
-                    iconMd="material:home">
+                    >
+                        <Icon
+                            ios="f7:house_fill"
+                            md="material:home"
+                            size="20px" />
                     Home
                 </Link>
                 <Link 
@@ -121,8 +124,8 @@ const HomePage = () => {
                 </Link>
                 <Link 
                     href="/team/"
-                    iconIos="f7:list_dash"
-                    iconMd="material:list">
+                    iconIos="f7:info_circle_fill"
+                    iconMd="material:info">
                     Team
                 </Link>
             </Toolbar>
