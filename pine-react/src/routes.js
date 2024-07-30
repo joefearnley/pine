@@ -1,6 +1,6 @@
 import HomePage from './pages/Home.jsx';
 import RosterPage from './pages/Roster.jsx';
-import SignUpPage from './pages/SignUp.jsx';
+import EditPlayerPage from './pages/EditPlayerPage.jsx';
 
 export default [
     {
@@ -12,7 +12,7 @@ export default [
         component: RosterPage,
     },
     {
-        path: '/signup/',
-        component: SignUpPage,
+        path: '/edit-player/:playerId',
+        component: EditPlayerPage,
     },
 ];

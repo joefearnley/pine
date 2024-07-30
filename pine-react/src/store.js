@@ -26,7 +26,8 @@ const store = createStore({
         team: ({ state }) => state.team,
         players: ({ state }) => state.players,
         playersPlaying: ({ state }) => state.players.filter(player => player.isPlaying),
-        playersOnBench: ({ state }) => state.players.filter(player => !player.isPlaying),
+        playersOnBench: ({ state }) => state.players.filter(player => !player.isPlaying),   
+        player: ({ state }, { playerId }) => state.players.filter(player => player.id === playerId),
     }
 });
 

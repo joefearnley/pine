@@ -65,7 +65,7 @@ const HomePage = () => {
                             {playersPlaying.map((player) => (
                                 <PlayerListItem 
                                     key={player.id}
-                                    title={player.name}
+                                    name={player.name}
                                     playerId={player.id}>
                                 </PlayerListItem>
                             ))}
@@ -94,7 +94,7 @@ const HomePage = () => {
                             {playersOnBench.map((player) => (
                                 <PlayerListItem 
                                     key={player.id}
-                                    title={player.name}
+                                    name={player.name}
                                     playerId={player.id}>
                                 </PlayerListItem>
                             ))}

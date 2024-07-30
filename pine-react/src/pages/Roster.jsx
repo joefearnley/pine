@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import {
-    f7,
     Page,
     Navbar,
     List,
     ListGroup,
+    Link,
     BlockTitle,
     Block,
     Preloader,
     useStore,
+    SwipeoutActions,
+    SwipeoutButton,
 } from 'framework7-react';
 import store from '../store.js';
 import PageToolbar from '../components/PageLinks.jsx';
@@ -25,6 +27,11 @@ const RosterPage = () => {
         setPlayers(allPlayers);
     }, [allPlayers]);
 
+    const editPlayer = evt => {
+        console.log('clicked...');
+        console.log(evt);
+    };
+
     return (
         <Page name="roster">
             <Navbar title="Roster" />
@@ -35,8 +42,12 @@ const RosterPage = () => {
                         {players.map((player) => (
                             <PlayerListItem
                                 key={player.id}
-                                title={player.name} 
-                                playerId={player.id}>
+                                name={player.name} 
+                                playerId={player.id} >
+                                    <SwipeoutActions right>
+                                        <SwipeoutButton>Edit</SwipeoutButton>
+                                        <SwipeoutButton delete>Delete</SwipeoutButton>
+                                    </SwipeoutActions>
                             </PlayerListItem>
                         ))}
                     </ListGroup>
