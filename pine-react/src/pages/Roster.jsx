@@ -4,7 +4,7 @@ import {
     Navbar,
     List,
     ListGroup,
-    Link,
+    ListItem,
     BlockTitle,
     Block,
     Preloader,
@@ -14,7 +14,6 @@ import {
 } from 'framework7-react';
 import store from '../store.js';
 import PageToolbar from '../components/PageLinks.jsx';
-import PlayerListItem from '../components/PlayerListItem.jsx';
 
 const RosterPage = () => {
     const [players, setPlayers] = useState([]);
@@ -40,15 +39,16 @@ const RosterPage = () => {
                 <List dividersIos simpleList strong outline>
                     <ListGroup>
                         {players.map((player) => (
-                            <PlayerListItem
+                            <ListItem
                                 key={player.id}
-                                name={player.name} 
-                                playerId={player.id} >
+                                title={player.name}
+                                after={`# ${player.number}`}
+                                subtitle="Not Playing">
                                     <SwipeoutActions right>
                                         <SwipeoutButton>Edit</SwipeoutButton>
                                         <SwipeoutButton delete>Delete</SwipeoutButton>
                                     </SwipeoutActions>
-                            </PlayerListItem>
+                            </ListItem>
                         ))}
                     </ListGroup>
                 </List>
