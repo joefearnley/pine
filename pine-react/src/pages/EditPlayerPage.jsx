@@ -6,13 +6,12 @@ import {
     Block,
     ListInput,
     Button,
+    useStore,
 } from 'framework7-react';
 
 const EditPlayerPage = (props) => {
     const [name, setName] = useState([]);
     const [number, setNumber] = useState([]);
-
-    console.log(props);
 
     const currentPlayer = useStore('player', props.playerId);
 

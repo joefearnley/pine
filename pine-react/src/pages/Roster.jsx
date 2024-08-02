@@ -15,7 +15,7 @@ import {
 import store from '../store.js';
 import PageToolbar from '../components/PageLinks.jsx';
 
-const RosterPage = () => {
+const RosterPage = (props) => {
     const [players, setPlayers] = useState([]);
 
     const allPlayers = useStore('players');
@@ -26,9 +26,9 @@ const RosterPage = () => {
         setPlayers(allPlayers);
     }, [allPlayers]);
 
-    const editPlayer = evt => {
-        console.log('clicked...');
-        console.log(evt);
+    const editPlayer = playerId => {
+        console.log(`/edit-player/${playerId}`);
+        props.f7router.navigate(`/edit-player/${playerId}`);
     };
 
     return (
@@ -40,12 +40,13 @@ const RosterPage = () => {
                     <ListGroup>
                         {players.map((player) => (
                             <ListItem
+                                swipeout
                                 key={player.id}
                                 title={player.name}
                                 after={`# ${player.number}`}
-                                subtitle="Not Playing">
+                                subtitle={"Not Playing"}>
                                     <SwipeoutActions right>
-                                        <SwipeoutButton>Edit</SwipeoutButton>
+                                        <SwipeoutButton onClick={() => editPlayer(player.id)}>Edit</SwipeoutButton>
                                         <SwipeoutButton delete>Delete</SwipeoutButton>
                                     </SwipeoutActions>
                             </ListItem>
