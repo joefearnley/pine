@@ -20,6 +20,9 @@ const store = createStore({
             state.players[playerIndex].isPlaying = isPlaying;
             localStorage.setItem('pinedb-players', JSON.stringify(state.players));
         },
+        getPlayer({ state }, { playerId }) {
+            return state.players.findIndex(player => parseInt(player.id) === parseInt(playerId));
+        },
     },
     getters: {
         loading: ({ state }) => state.loading,

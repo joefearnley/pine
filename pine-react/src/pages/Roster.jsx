@@ -27,7 +27,6 @@ const RosterPage = (props) => {
     }, [allPlayers]);
 
     const editPlayer = playerId => {
-        console.log(`/edit-player/${playerId}`);
         props.f7router.navigate(`/edit-player/${playerId}`);
     };
 

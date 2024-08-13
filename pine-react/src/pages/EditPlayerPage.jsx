@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Page,
     Navbar,
@@ -8,19 +8,33 @@ import {
     Button,
     useStore,
 } from 'framework7-react';
+import store from '../store.js';
+import PageToolbar from '../components/PageLinks.jsx';
 
 const EditPlayerPage = (props) => {
-    const [name, setName] = useState([]);
-    const [number, setNumber] = useState([]);
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState(0);
+    const [currentPlayer, setCurrentPlayer] = useState({});
 
-    const currentPlayer = useStore('player', props.playerId);
+    let player = store.dispatch('getPlayer', { 
+        playerId: props.playerId,
+    });
 
     useEffect(() => {
         store.dispatch('loadPlayers');
 
-        setName(currentPlayer.name);
-        setNumber(currentPlayer.number);
-    }, [currentPlayer]);
+        setCurrentPlayer(player);
+        setName(player.name);
+        setNumber(player.number);
+
+        console.log(`currentPlayer:`);
+        console.log(player);
+    }, []);
+
+    const updatePlayer = () => {
+        console.log(name);
+        console.log(number);
+    };
 
     return (
         <Page name="signup">
@@ -34,6 +48,7 @@ const EditPlayerPage = (props) => {
                     required
                     validate
                     clearButton
+                    value={name}
                     onChange={e => setName(e.target.value)}
                 >
                 </ListInput>
@@ -44,16 +59,19 @@ const EditPlayerPage = (props) => {
                     required
                     validate
                     clearButton
+                    value={number}
                     onChange={e => setNumber(e.target.value)}
                 >
                 </ListInput>
             </List>
 
             <Block>
-                <Button large fill onClick={registerAccount}>
+                <Button large fill onClick={updatePlayer}>
                     Update Player
                 </Button>
             </Block>
+
+            <PageToolbar page="Roster" />
         </Page>
     )
 };
