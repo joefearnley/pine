@@ -5,6 +5,7 @@ const store = createStore({
         loading: false,
         team: {},
         players: [],
+        currentPlayerId: 0,
     },
     actions: {
         loadPlayers({ state }) {
@@ -20,8 +21,9 @@ const store = createStore({
             state.players[playerIndex].isPlaying = isPlaying;
             localStorage.setItem('pinedb-players', JSON.stringify(state.players));
         },
-        getPlayer({ state }, { playerId }) {
-            return state.players.findIndex(player => parseInt(player.id) === parseInt(playerId));
+        setCurrentPlayer({ state }, { playerId }) {
+            console.log('setting player ID');
+            state.currentPlayerId = playerId;
         },
     },
     getters: {
@@ -29,8 +31,8 @@ const store = createStore({
         team: ({ state }) => state.team,
         players: ({ state }) => state.players,
         playersPlaying: ({ state }) => state.players.filter(player => player.isPlaying),
-        playersOnBench: ({ state }) => state.players.filter(player => !player.isPlaying),   
-        player: ({ state }, { playerId }) => state.players.filter(player => player.id === playerId),
+        playersOnBench: ({ state }) => state.players.filter(player => !player.isPlaying),
+        currentPlayer: ({ state }) => state.players.filter(player => player.id === state.currentPlayerId),
     }
 });
 

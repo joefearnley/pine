@@ -16,9 +16,11 @@ const EditPlayerPage = (props) => {
     const [number, setNumber] = useState(0);
     const [currentPlayer, setCurrentPlayer] = useState({});
 
-    let player = store.dispatch('getPlayer', { 
+    store.dispatch('setCurrentPlayer', { 
         playerId: props.playerId,
     });
+
+    const player = useStore('currentPlayer');
 
     useEffect(() => {
         store.dispatch('loadPlayers');
@@ -26,10 +28,7 @@ const EditPlayerPage = (props) => {
         setCurrentPlayer(player);
         setName(player.name);
         setNumber(player.number);
-
-        console.log(`currentPlayer:`);
-        console.log(player);
-    }, []);
+    }, [player]);
 
     const updatePlayer = () => {
         console.log(name);
