@@ -10,29 +10,22 @@ import {
 } from 'framework7-react';
 import store from '../store.js';
 import PageToolbar from '../components/PageLinks.jsx';
+import playerDB from '../db.js';
 
 const EditPlayerPage = (props) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState(0);
     const [currentPlayer, setCurrentPlayer] = useState({});
 
-    store.dispatch('setCurrentPlayer', { 
-        playerId: props.playerId,
-    });
-
-    const player = useStore('currentPlayer');
-
     useEffect(() => {
-        store.dispatch('loadPlayers');
-
+        playerDB.loadPlayers();
+        let player = playerDB.getPlayer(props.playerId);
         setCurrentPlayer(player);
-        setName(player.name);
-        setNumber(player.number);
-    }, [player]);
+    }, []);
 
     const updatePlayer = () => {
-        console.log(name);
-        console.log(number);
+        console.log(currentPlayer.name);
+        console.log(currentPlayer.number);
     };
 
     return (
