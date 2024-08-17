@@ -16,7 +16,9 @@ const playerDB = {
     updatePlayerPlaying(playerId, isPlaying) {
         const players = this.getPlayers();
         const playerIndex = players.findIndex(player => parseInt(player.id) === parseInt(playerId));
+
         players[playerIndex].isPlaying = isPlaying;
+
         localStorage.setItem('pinedb-players', JSON.stringify(players));
     },
     setCurrentPlayerId(playerId) {
@@ -42,7 +44,13 @@ const playerDB = {
         });
 
         localStorage.setItem('pinedb-players', JSON.stringify(remainingPlayers));
-    }
+    },
+    playersPlaying() {
+        return this.getPlayers().filter(player => player.isPlaying);
+    },
+    playersOnBench() {
+        return this.getPlayers().filter(player => !player.isPlaying);
+    },
 };
 
 export default playerDB;

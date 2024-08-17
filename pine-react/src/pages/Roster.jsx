@@ -12,19 +12,22 @@ import {
     SwipeoutActions,
     SwipeoutButton,
 } from 'framework7-react';
-import store from '../store.js';
+import playerDB from '../db.js';
 import PageToolbar from '../components/PageLinks.jsx';
 
 const RosterPage = (props) => {
     const [players, setPlayers] = useState([]);
-
-    const allPlayers = useStore('players');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        store.dispatch('loadPlayers');
+        setLoading(true);
 
-        setPlayers(allPlayers);
-    }, [allPlayers]);
+        playerDB.loadPlayers();
+
+        setPlayers(playerDB.getPlayers());
+
+        setLoading(false);
+    }, []);
 
     const editPlayer = playerId => {
         props.f7router.navigate(`/edit-player/${playerId}`);
@@ -35,7 +38,7 @@ const RosterPage = (props) => {
             <Navbar title="Roster" />
             <BlockTitle>Players</BlockTitle>
             {players.length && (
-                <List dividersIos simpleList strong outline>
+                <List dividersIos mediaList strong outline>
                     <ListGroup>
                         {players.map((player) => (
                             <ListItem
@@ -43,7 +46,7 @@ const RosterPage = (props) => {
                                 key={player.id}
                                 title={player.name}
                                 after={`# ${player.number}`}
-                                subtitle={"Not Playing"}>
+                                text={player.isPlaying? `Field` : `Bench`}>
                                     <SwipeoutActions right>
                                         <SwipeoutButton onClick={() => editPlayer(player.id)}>Edit</SwipeoutButton>
                                         <SwipeoutButton delete>Delete</SwipeoutButton>
@@ -54,7 +57,7 @@ const RosterPage = (props) => {
                 </List>
             )}
 
-            {store.loading && (
+            {loading && (
                 <Block className="text-align-center">
                     <Preloader />
                 </Block>

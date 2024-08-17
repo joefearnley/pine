@@ -8,14 +8,12 @@ import {
     Button,
     useStore,
 } from 'framework7-react';
-import store from '../store.js';
 import PageToolbar from '../components/PageLinks.jsx';
 import playerDB from '../db.js';
 
 const EditPlayerPage = (props) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState(0);
-    const [currentPlayer, setCurrentPlayer] = useState({});
 
     useEffect(() => {
         playerDB.loadPlayers();

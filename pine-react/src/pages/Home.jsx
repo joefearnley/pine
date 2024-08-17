@@ -10,50 +10,46 @@ import {
     Preloader,
     useStore
 } from 'framework7-react';
-import store from '../store.js';
+import playerDB from '../db.js';
 import PageToolbar from '../components/PageLinks.jsx';
 import PlayerListItem from '../components/PlayerListItem.jsx';
 
 const HomePage = () => {
     const [playersPlaying, setPlayersPlaying] = useState([]);
     const [playersOnBench, setPlayersOnBench] = useState([]);
-
-    const initialPlayersPlaying = useStore('playersPlaying');
-    const initialPlayersOnBench = useStore('playersOnBench');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        store.dispatch('loadPlayers');
+        setLoading(true);
 
-        setPlayersPlaying(initialPlayersPlaying);
-        setPlayersOnBench(initialPlayersOnBench);
-    }, [initialPlayersPlaying, initialPlayersOnBench]);
+        playerDB.loadPlayers();
+
+        setPlayersPlaying(playerDB.playersPlaying());
+        setPlayersOnBench(playerDB.playersOnBench());
+
+        setLoading(false);
+    }, []);
 
     const movePlayerToField = evt => {
-        store.dispatch('updatePlayerPlaying', { 
-            playerId: evt.item.dataset.playerId,
-            isPlaying: true
-        });
+        playerDB.updatePlayerPlaying(evt.item.dataset.playerId, true);
     }
 
     const movePlayerToBench = evt => {
-        store.dispatch('updatePlayerPlaying', { 
-            playerId: evt.item.dataset.playerId,
-            isPlaying: false
-        });
+        playerDB.updatePlayerPlaying(evt.item.dataset.playerId, false);
     }
 
     return (
         <Page name="home">
             <Navbar title="Home" />
             <BlockTitle>Playing</BlockTitle>
-            {store.loading && (
+            {loading && (
                 <Block className="text-align-center">
                     <Preloader />
                 </Block>
             )}
             
             {playersPlaying.length && (
-                <List dividersIos simpleList strong outline>
+                <List dividersIos strong strongIos>
                     <ListGroup>
                         <ReactSortable
                             list={playersPlaying}
@@ -65,8 +61,7 @@ const HomePage = () => {
                             {playersPlaying.map((player) => (
                                 <PlayerListItem 
                                     key={player.id}
-                                    name={player.name}
-                                    playerId={player.id}>
+                                    player={player}>
                                 </PlayerListItem>
                             ))}
                         </ReactSortable>
@@ -75,14 +70,14 @@ const HomePage = () => {
             )}
     
             <BlockTitle>Bench</BlockTitle>
-            {store.loading && (
+            {loading && (
                 <Block className="text-align-center">
                     <Preloader />
                 </Block>
             )}
 
             {playersOnBench.length && (
-                <List dividersIos simpleList strong outline>
+                <List dividersIos strong strongIos>
                     <ListGroup>
                         <ReactSortable
                             list={playersOnBench}
@@ -94,8 +89,7 @@ const HomePage = () => {
                             {playersOnBench.map((player) => (
                                 <PlayerListItem 
                                     key={player.id}
-                                    name={player.name}
-                                    playerId={player.id}>
+                                    player={player}>
                                 </PlayerListItem>
                             ))}
                         </ReactSortable>
