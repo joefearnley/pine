@@ -24,6 +24,7 @@ const HomePage = () => {
         playerDB.loadPlayers();
         setPlayersPlaying(playerDB.playersPlaying());
         setPlayersOnBench(playerDB.playersOnBench());
+
         setLoading(false);
     }, []);
 

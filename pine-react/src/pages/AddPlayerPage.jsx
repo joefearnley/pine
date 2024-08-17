@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
     Page,
     Navbar,
@@ -14,30 +14,29 @@ import {
 import PageToolbar from '../components/PageLinks.jsx';
 import playerDB from '../db.js';
 
-const EditPlayerPage = (props) => {
+const AddPlayerPage = (props) => {
     const [name, setName] = useState('');
-    const [number, setNumber] = useState(0);
+    const [number, setNumber] = useState('');
     const toast = useRef(null);
 
-    useEffect(() => {
-        playerDB.loadPlayers();
-        let player = playerDB.getPlayer(props.playerId);
-        setName(player.name);
-        setNumber(player.number);
-    }, []);
+    playerDB.loadPlayers();
 
-    const updatePlayer = () => {
-        playerDB.updatePlayer(props.playerId, name, number);
+    const addPlayer = () => {
+        playerDB.addPlayer(name, parseInt(number));
 
         if (!toast.current) {
             toast.current = f7.toast.create({
-              text: `Player ${name} - #${number} Updated.`,
+              text: `Player ${name} - #${number} Created.`,
               position: 'top',
               closeTimeout: 2000,
             });
           }
 
           toast.current.open();
+
+          setTimeout(() => {
+            props.f7router.navigate(`/roster`);
+          }, 3000);
     };
 
     return (
@@ -77,8 +76,8 @@ const EditPlayerPage = (props) => {
             </List>
 
             <Block>
-                <Button large fill onClick={updatePlayer}>
-                    Update Player
+                <Button large fill onClick={addPlayer}>
+                    Add Player
                 </Button>
             </Block>
 
@@ -87,4 +86,4 @@ const EditPlayerPage = (props) => {
     )
 };
 
-export default EditPlayerPage;
+export default AddPlayerPage;

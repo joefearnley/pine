@@ -2,6 +2,11 @@
 const playerDB = {
     currentPlayerId: 0,
     players: [],
+    getNextId() {
+        const sortedPlayers = this.getPlayers().sort((a, b) => a.id - b.id);
+        const nextId = sortedPlayers.pop().id;
+        return parseInt(nextId) + 1;
+    },
     loadPlayers() {
         this.players = JSON.parse(localStorage.getItem('pinedb-players')) || [];  
     },
@@ -31,12 +36,25 @@ const playerDB = {
         });
 
         players[playerIndex].name = name;
-        players[playerIndex].number = number;
+        players[playerIndex].number = parseInt(number);
 
         localStorage.setItem('pinedb-players', JSON.stringify(players));
     },
     getCurrentPlayer() {
         return this.getPlayers().find(player => player.id === this.currentPlayerId);
+    },
+    addPlayer(name, number) {
+        const player = {
+            id: this.getNextId(),
+            name,
+            number
+        };
+
+        const players = this.getPlayers();
+
+        players.push(player);
+
+        localStorage.setItem('pinedb-players', JSON.stringify(players));
     },
     removePlayer(playerId) {
         const remainingPlayers = this.getPlayers().filter(player => {
