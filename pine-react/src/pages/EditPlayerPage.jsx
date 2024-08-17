@@ -20,12 +20,12 @@ const EditPlayerPage = (props) => {
     useEffect(() => {
         playerDB.loadPlayers();
         let player = playerDB.getPlayer(props.playerId);
-        setCurrentPlayer(player);
+        setName(player.name);
+        setNumber(player.number);
     }, []);
 
     const updatePlayer = () => {
-        console.log(currentPlayer.name);
-        console.log(currentPlayer.number);
+        playerDB.updatePlayer(name, number);
     };
 
     return (
