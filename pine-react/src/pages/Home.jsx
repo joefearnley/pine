@@ -21,12 +21,9 @@ const HomePage = () => {
 
     useEffect(() => {
         setLoading(true);
-
         playerDB.loadPlayers();
-
         setPlayersPlaying(playerDB.playersPlaying());
         setPlayersOnBench(playerDB.playersOnBench());
-
         setLoading(false);
     }, []);
 
@@ -40,7 +37,7 @@ const HomePage = () => {
 
     return (
         <Page name="home">
-            <Navbar title="Home" />
+            <Navbar title="Players" />
             <BlockTitle>Playing</BlockTitle>
             {loading && (
                 <Block className="text-align-center">

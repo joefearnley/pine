@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react';
 import {
     Page,
     Navbar,
+    NavTitle,
+    NavLeft,
+    NavRight,
     List,
     ListGroup,
     ListItem,
     BlockTitle,
     Block,
     Preloader,
-    useStore,
+    Link,
     SwipeoutActions,
     SwipeoutButton,
 } from 'framework7-react';
@@ -21,11 +24,8 @@ const RosterPage = (props) => {
 
     useEffect(() => {
         setLoading(true);
-
         playerDB.loadPlayers();
-
         setPlayers(playerDB.getPlayers());
-
         setLoading(false);
     }, []);
 
@@ -35,7 +35,21 @@ const RosterPage = (props) => {
 
     return (
         <Page name="roster">
-            <Navbar title="Roster" />
+            <Navbar>
+                <NavLeft>
+                    <Link
+                        href="/"
+                        iconIos="f7:arrow_left"
+                        iconMd="material:arrow_back" />
+                </NavLeft>
+                <NavTitle sliding>Team Roster</NavTitle>
+                <NavRight>
+                    <Link
+                        href="/add-player"
+                        iconIos="f7:plus"
+                        iconMd="material:add" />
+                </NavRight>
+            </Navbar>
             <BlockTitle>Players</BlockTitle>
             {players.length && (
                 <List dividersIos mediaList strong outline>

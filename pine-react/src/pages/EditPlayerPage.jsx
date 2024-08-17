@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import {
     Page,
     Navbar,
+    NavLeft,
+    NavTitle,
+    Link,
     List,
     Block,
     ListInput,
     Button,
-    useStore,
 } from 'framework7-react';
 import PageToolbar from '../components/PageLinks.jsx';
 import playerDB from '../db.js';
@@ -28,8 +30,15 @@ const EditPlayerPage = (props) => {
 
     return (
         <Page name="signup">
-            <Navbar title="Edit Player" />
-
+            <Navbar>
+                <NavLeft>
+                    <Link
+                        href="/roster"
+                        iconIos="f7:arrow_left"
+                        iconMd="material:arrow_back" />
+                </NavLeft>
+                <NavTitle sliding>Edit Player</NavTitle>
+            </Navbar>
             <List strongIos dividersIos insetIos>
             <ListInput
                     label="Name"

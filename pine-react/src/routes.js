@@ -8,7 +8,7 @@ export default [
         component: HomePage,
     },
     {
-        path: '/roster/',
+        path: '/roster',
         component: RosterPage,
     },
     {
