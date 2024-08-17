@@ -38,7 +38,7 @@ const HomePage = () => {
 
     return (
         <Page name="home">
-            <Navbar title="Players" />
+            <Navbar title="Pine" />
             <BlockTitle>Playing</BlockTitle>
             {loading && (
                 <Block className="text-align-center">

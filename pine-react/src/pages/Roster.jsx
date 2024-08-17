@@ -14,6 +14,7 @@ import {
     Link,
     SwipeoutActions,
     SwipeoutButton,
+    f7,
 } from 'framework7-react';
 import playerDB from '../db.js';
 import PageToolbar from '../components/PageLinks.jsx';
@@ -31,6 +32,11 @@ const RosterPage = (props) => {
 
     const editPlayer = playerId => {
         props.f7router.navigate(`/edit-player/${playerId}`);
+    };
+
+    const deletePlayer = playerId => {
+        playerDB.removePlayer(playerId);
+        f7.dialog.alert('Player Removed from Roster!');
     };
 
     return (
@@ -60,10 +66,11 @@ const RosterPage = (props) => {
                                 key={player.id}
                                 title={player.name}
                                 after={`# ${player.number}`}
-                                text={player.isPlaying? `Field` : `Bench`}>
+                                text={player.isPlaying? `Field` : `Bench`}
+                                onSwipeoutDeleted={() => deletePlayer(player.id)}>
                                     <SwipeoutActions right>
                                         <SwipeoutButton onClick={() => editPlayer(player.id)}>Edit</SwipeoutButton>
-                                        <SwipeoutButton delete>Delete</SwipeoutButton>
+                                        <SwipeoutButton delete confirmText="Are you sure you want to remove this player from the Roster?">Delete</SwipeoutButton>
                                     </SwipeoutActions>
                             </ListItem>
                         ))}
