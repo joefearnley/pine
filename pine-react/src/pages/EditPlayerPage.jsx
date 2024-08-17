@@ -25,7 +25,7 @@ const EditPlayerPage = (props) => {
     }, []);
 
     const updatePlayer = () => {
-        playerDB.updatePlayer(name, number);
+        playerDB.updatePlayer(props.playerId, name, number);
     };
 
     return (

@@ -9,30 +9,40 @@ const playerDB = {
         return JSON.parse(localStorage.getItem('pinedb-players')) || [];        
     },
     getPlayer(playerId) {
-        let player = this.getPlayers().find(player => {
-            console.log(parseInt(player.id) === parseInt(playerId));
+        return this.getPlayers().find(player => {
             return parseInt(player.id) === parseInt(playerId);
         });
-
-        return player;
     },
     updatePlayerPlaying(playerId, isPlaying) {
-        const playerIndex = this.getPlayers().findIndex(player => parseInt(player.id) === parseInt(playerId));
+        const players = this.getPlayers();
+        const playerIndex = players.findIndex(player => parseInt(player.id) === parseInt(playerId));
         players[playerIndex].isPlaying = isPlaying;
         localStorage.setItem('pinedb-players', JSON.stringify(players));
     },
     setCurrentPlayerId(playerId) {
         this.currentPlayerId = playerId;
     },
-    updatePlayer(player, name, number) {
-        const playerIndex = this.getPlayers().findIndex(player => parseInt(player.id) === parseInt(playerId));
+    updatePlayer(playerId, name, number) {
+        const players = this.getPlayers();
+        const playerIndex = players.findIndex(player => {
+            return parseInt(player.id) === parseInt(playerId)
+        });
+
         players[playerIndex].name = name;
         players[playerIndex].number = number;
+
         localStorage.setItem('pinedb-players', JSON.stringify(players));
     },
     getCurrentPlayer() {
         return this.getPlayers().find(player => player.id === this.currentPlayerId);
     },
+    removePlayer(playerId) {
+        const remainingPlayers = this.getPlayers().filter(player => {
+            return parseInt(player.id) !== parseInt(playerId)
+        });
+
+        localStorage.setItem('pinedb-players', JSON.stringify(remainingPlayers));
+    }
 };
 
 export default playerDB;
