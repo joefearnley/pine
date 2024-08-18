@@ -78,8 +78,6 @@ const playerDB = {
         localStorage.setItem('pinedb-players', JSON.stringify(remainingPlayers));
     },
     playersPlaying() {
-        console.log(this.getPlayers());
-
         return this.getPlayers().filter(player => player.isPlaying);
     },
     playersOnBench() {
