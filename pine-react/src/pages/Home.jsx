@@ -8,9 +8,8 @@ import {
     List,
     ListGroup,
     Preloader,
-    useStore
 } from 'framework7-react';
-import playerDB from '../db.js';
+import { playerDB } from '../db.js';
 import PageToolbar from '../components/PageLinks.jsx';
 import PlayerListItem from '../components/PlayerListItem.jsx';
 

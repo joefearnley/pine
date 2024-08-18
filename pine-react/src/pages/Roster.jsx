@@ -16,7 +16,7 @@ import {
     SwipeoutButton,
     f7,
 } from 'framework7-react';
-import playerDB from '../db.js';
+import { playerDB } from '../db.js';
 import PageToolbar from '../components/PageLinks.jsx';
 
 const RosterPage = (props) => {

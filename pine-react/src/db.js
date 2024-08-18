@@ -1,4 +1,18 @@
 
+const teamDB = {
+    name: '',
+    getTeam() {
+        return JSON.parse(localStorage.getItem('pinedb-team')) || [];
+    },
+    updateTeam(name) {
+        const team = {
+            name
+        };
+
+        localStorage.setItem('pinedb-team', JSON.stringify(team));
+    }
+};
+
 const playerDB = {
     currentPlayerId: 0,
     players: [],
@@ -8,10 +22,10 @@ const playerDB = {
         return parseInt(nextId) + 1;
     },
     loadPlayers() {
-        this.players = JSON.parse(localStorage.getItem('pinedb-players')) || [];  
+        this.players = JSON.parse(localStorage.getItem('pinedb-players')) || [];
     },
     getPlayers() {
-        return JSON.parse(localStorage.getItem('pinedb-players')) || [];        
+        return JSON.parse(localStorage.getItem('pinedb-players')) || [];
     },
     getPlayer(playerId) {
         return this.getPlayers().find(player => {
@@ -64,6 +78,8 @@ const playerDB = {
         localStorage.setItem('pinedb-players', JSON.stringify(remainingPlayers));
     },
     playersPlaying() {
+        console.log(this.getPlayers());
+
         return this.getPlayers().filter(player => player.isPlaying);
     },
     playersOnBench() {
@@ -71,4 +87,4 @@ const playerDB = {
     },
 };
 
-export default playerDB;
+export { teamDB, playerDB };

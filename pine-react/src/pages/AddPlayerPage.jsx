@@ -12,7 +12,7 @@ import {
     f7,
 } from 'framework7-react';
 import PageToolbar from '../components/PageLinks.jsx';
-import playerDB from '../db.js';
+import { playerDB } from '../db.js';
 
 const AddPlayerPage = (props) => {
     const [name, setName] = useState('');

@@ -12,32 +12,20 @@ import {
     f7,
 } from 'framework7-react';
 import PageToolbar from '../components/PageLinks.jsx';
-import { playerDB } from '../db.js';
+import { teamDB } from '../db.js';
 
-const EditPlayerPage = (props) => {
+const TeamPage = (props) => {
     const [name, setName] = useState('');
-    const [number, setNumber] = useState(0);
-    const toast = useRef(null);
 
     useEffect(() => {
-        playerDB.loadPlayers();
-        let player = playerDB.getPlayer(props.playerId);
-        setName(player.name);
-        setNumber(player.number);
+        let team = teamDB.getTeam();
+        setName(team.name);
     }, []);
 
-    const updatePlayer = () => {
-        playerDB.updatePlayer(props.playerId, name, number);
+    const updateTeam = () => {
+        teamDB.updateTeam(name);
 
-        if (!toast.current) {
-            toast.current = f7.toast.create({
-              text: `Player ${name} - #${number} Updated.`,
-              position: 'top',
-              closeTimeout: 2000,
-            });
-          }
-
-          toast.current.open();
+        f7.dialog.alert('Team Updated!');
     };
 
     return (
@@ -63,28 +51,17 @@ const EditPlayerPage = (props) => {
                     onChange={e => setName(e.target.value)}
                 >
                 </ListInput>
-                <ListInput
-                    label="Number"
-                    type="text"
-                    placeholder="enter player number"
-                    required
-                    validate
-                    clearButton
-                    value={number}
-                    onChange={e => setNumber(e.target.value)}
-                >
-                </ListInput>
             </List>
 
             <Block>
-                <Button large fill onClick={updatePlayer}>
-                    Update Player
+                <Button large fill onClick={updateTeam}>
+                    Update Team
                 </Button>
             </Block>
 
-            <PageToolbar page="Roster" />
+            <PageToolbar page="Team" />
         </Page>
     )
 };
 
-export default EditPlayerPage;
+export default TeamPage;
