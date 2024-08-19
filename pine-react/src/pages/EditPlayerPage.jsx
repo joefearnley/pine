@@ -29,15 +29,9 @@ const EditPlayerPage = (props) => {
     const updatePlayer = () => {
         playerDB.updatePlayer(props.playerId, name, number);
 
-        if (!toast.current) {
-            toast.current = f7.toast.create({
-              text: `Player ${name} - #${number} Updated.`,
-              position: 'top',
-              closeTimeout: 2000,
-            });
-          }
-
-          toast.current.open();
+        f7.dialog.alert(`Player ${name} - #${number} Updated.`, () => {
+            props.f7router.navigate(`/roster`);
+        });
     };
 
     return (

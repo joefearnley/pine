@@ -17,7 +17,13 @@ const playerDB = {
     currentPlayerId: 0,
     players: [],
     getNextId() {
-        const sortedPlayers = this.getPlayers().sort((a, b) => a.id - b.id);
+        const players = this.getPlayers();
+
+        if (players.length === 0) {
+            return 1;
+        }
+
+        const sortedPlayers = players.sort((a, b) => a.id - b.id);
         const nextId = sortedPlayers.pop().id;
         return parseInt(nextId) + 1;
     },

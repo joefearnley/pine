@@ -8,6 +8,8 @@ import {
     BlockTitle,
     List,
     ListGroup,
+    ListButton,
+    Link,
     Preloader,
 } from 'framework7-react';
 import { playerDB } from '../db.js';
@@ -42,10 +44,72 @@ const HomePage = () => {
                 <NavTitle sliding>Pine Home</NavTitle>
             </Navbar>
 
-            {playersPlaying.length === 0 && playersOnBench === 0 && (
-                <div>Add a Player</div>
+            {playersPlaying.length === 0 && playersOnBench.length === 0 && (
+                <div>
+                    <BlockTitle>Block Title</BlockTitle>
+                    <Block strong>
+                    <p>It appears you don't have any players on your roster yet. Click the button below to add one.</p>
+                    </Block>
+                    <List inset strong>
+                        <ListButton title="Add a Player" href="/add-player" />  
+                    </List>
+                </div>
             )}
 
+
+            <div>
+                <BlockTitle>Playing</BlockTitle>
+                {loading && (
+                    <Block className="text-align-center">
+                        <Preloader />
+                    </Block>
+                )}
+                <List dividersIos strong strongIos>
+                    <ListGroup>
+                        <ReactSortable
+                            list={playersPlaying}
+                            setList={setPlayersPlaying}
+                            group="sharedGroup"
+                            onAdd={movePlayerToField}
+                            onRemove={movePlayerToBench}
+                        >
+                            {playersPlaying.map((player) => (
+                                <PlayerListItem 
+                                    key={player.id}
+                                    player={player}>
+                                </PlayerListItem>
+                            ))}
+                        </ReactSortable>
+                    </ListGroup>
+                </List>
+            </div>
+
+            <div>
+                <BlockTitle>Bench</BlockTitle>
+                {loading && (
+                    <Block className="text-align-center">
+                        <Preloader />
+                    </Block>
+                )}
+                <List dividersIos strong strongIos>
+                    <ListGroup>
+                        <ReactSortable
+                            list={playersOnBench}
+                            setList={setPlayersOnBench}
+                            group="sharedGroup"
+                            onAdd={movePlayerToBench}
+                            onRemove={movePlayerToField}
+                        >
+                            {playersOnBench.map((player) => (
+                                <PlayerListItem 
+                                    key={player.id}
+                                    player={player}>
+                                </PlayerListItem>
+                            ))}
+                        </ReactSortable>
+                    </ListGroup>
+                </List>
+            </div>
 
             <PageToolbar page="Home" />
         </Page>
