@@ -41,13 +41,13 @@ const HomePage = () => {
     return (
         <Page name="home">
             <Navbar>
-                <NavTitle sliding>Pine Home</NavTitle>
+                <NavTitle sliding>Pine</NavTitle>
             </Navbar>
 
             {playersPlaying.length === 0 && playersOnBench.length === 0 && (
                 <div>
                     <BlockTitle>Block Title</BlockTitle>
-                    <Block strong>
+                    <Block strong outline inset>
                     <p>It appears you don't have any players on your roster yet. Click the button below to add one.</p>
                     </Block>
                     <List inset strong>

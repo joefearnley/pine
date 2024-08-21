@@ -15,6 +15,7 @@ import {
     SwipeoutActions,
     SwipeoutButton,
     f7,
+    BlockHeader,
 } from 'framework7-react';
 import { playerDB } from '../db.js';
 import PageToolbar from '../components/PageLinks.jsx';
@@ -44,7 +45,7 @@ const RosterPage = (props) => {
             <Navbar>
                 <NavLeft>
                     <Link
-                        href="/"
+                        back
                         iconIos="f7:arrow_left"
                         iconMd="material:arrow_back" />
                 </NavLeft>
@@ -56,7 +57,8 @@ const RosterPage = (props) => {
                         iconMd="material:add" />
                 </NavRight>
             </Navbar>
-            <BlockTitle>Players</BlockTitle>
+            <BlockTitle medium>Players</BlockTitle>
+            <BlockHeader>Swipe player to edit</BlockHeader>
             {players.length && (
                 <List dividersIos mediaList strong outline>
                     <ListGroup>

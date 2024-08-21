@@ -34,7 +34,7 @@ const AddPlayerPage = (props) => {
             <Navbar>
                 <NavLeft>
                     <Link
-                        href="/roster"
+                        back
                         iconIos="f7:arrow_left"
                         iconMd="material:arrow_back" />
                 </NavLeft>
