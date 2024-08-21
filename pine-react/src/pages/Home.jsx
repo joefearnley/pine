@@ -45,7 +45,7 @@ const HomePage = () => {
             </Navbar>
 
             {playersPlaying.length === 0 && playersOnBench.length === 0 && (
-                <div>
+                <>
                     <BlockTitle>Block Title</BlockTitle>
                     <Block strong outline inset>
                     <p>It appears you don't have any players on your roster yet. Click the button below to add one.</p>
@@ -53,11 +53,11 @@ const HomePage = () => {
                     <List inset strong>
                         <ListButton title="Add a Player" href="/add-player" />  
                     </List>
-                </div>
+                </>
             )}
 
 
-            <div>
+            <>
                 <BlockTitle>Playing</BlockTitle>
                 {loading && (
                     <Block className="text-align-center">
@@ -82,9 +82,9 @@ const HomePage = () => {
                         </ReactSortable>
                     </ListGroup>
                 </List>
-            </div>
+            </>
 
-            <div>
+            <>
                 <BlockTitle>Bench</BlockTitle>
                 {loading && (
                     <Block className="text-align-center">
@@ -109,7 +109,7 @@ const HomePage = () => {
                         </ReactSortable>
                     </ListGroup>
                 </List>
-            </div>
+            </>
 
             <PageToolbar page="Home" />
         </Page>
