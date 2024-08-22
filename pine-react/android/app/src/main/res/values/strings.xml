@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">pine</string>
+    <string name="title_activity_main">pine</string>
+    <string name="package_name">com.joefearnley.pine</string>
+    <string name="custom_url_scheme">com.joefearnley.pine</string>
+</resources>
