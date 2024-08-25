@@ -9,7 +9,6 @@ import {
     List,
     ListGroup,
     ListButton,
-    Link,
     Preloader,
 } from 'framework7-react';
 import { playerDB } from '../db.js';
