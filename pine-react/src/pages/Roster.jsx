@@ -68,6 +68,7 @@ const RosterPage = (props) => {
                                 key={player.id}
                                 title={player.name}
                                 after={`# ${player.number}`}
+                                subtitle={`${player.position}`}
                                 text={player.isPlaying? `Field` : `Bench`}
                                 onSwipeoutDeleted={() => deletePlayer(player.id)}>
                                     <SwipeoutActions right>

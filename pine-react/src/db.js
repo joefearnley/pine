@@ -49,7 +49,7 @@ const playerDB = {
     setCurrentPlayerId(playerId) {
         this.currentPlayerId = playerId;
     },
-    updatePlayer(playerId, name, number) {
+    updatePlayer(playerId, name, number, position) {
         const players = this.getPlayers();
         const playerIndex = players.findIndex(player => {
             return parseInt(player.id) === parseInt(playerId)
@@ -57,17 +57,19 @@ const playerDB = {
 
         players[playerIndex].name = name;
         players[playerIndex].number = parseInt(number);
+        players[playerIndex].position = position;
 
         localStorage.setItem('pinedb-players', JSON.stringify(players));
     },
     getCurrentPlayer() {
         return this.getPlayers().find(player => player.id === this.currentPlayerId);
     },
-    addPlayer(name, number) {
+    addPlayer(name, number, position) {
         const player = {
             id: this.getNextId(),
             name,
-            number
+            number,
+            position
         };
 
         const players = this.getPlayers();
@@ -91,4 +93,14 @@ const playerDB = {
     },
 };
 
-export { teamDB, playerDB };
+const playerPositions = [
+    {
+        name: 'Offense',
+    },{
+        name: 'Defense',
+    },{
+        name: 'Goalie',
+    },
+];
+
+export { teamDB, playerDB, playerPositions };

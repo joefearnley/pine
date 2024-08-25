@@ -25,16 +25,17 @@ const HomePage = () => {
         playerDB.loadPlayers();
         setPlayersPlaying(playerDB.playersPlaying());
         setPlayersOnBench(playerDB.playersOnBench());
-
         setLoading(false);
     }, []);
 
     const movePlayerToField = evt => {
         playerDB.updatePlayerPlaying(evt.item.dataset.playerId, true);
+        setPlayersPlaying(playerDB.playersPlaying());
     }
 
     const movePlayerToBench = evt => {
         playerDB.updatePlayerPlaying(evt.item.dataset.playerId, false);
+        setPlayersOnBench(playerDB.playersOnBench());
     }
 
     return (
@@ -55,7 +56,6 @@ const HomePage = () => {
                 </>
             )}
 
-
             <>
                 <BlockTitle>Playing</BlockTitle>
                 {loading && (
@@ -63,7 +63,7 @@ const HomePage = () => {
                         <Preloader />
                     </Block>
                 )}
-                <List dividersIos strong strongIos>
+                <List mediaList dividersIos strong strongIos>
                     <ListGroup>
                         <ReactSortable
                             list={playersPlaying}
@@ -75,7 +75,8 @@ const HomePage = () => {
                             {playersPlaying.map((player) => (
                                 <PlayerListItem 
                                     key={player.id}
-                                    player={player}>
+                                    player={player}
+                                    showPosition={true}>
                                 </PlayerListItem>
                             ))}
                         </ReactSortable>
@@ -90,7 +91,7 @@ const HomePage = () => {
                         <Preloader />
                     </Block>
                 )}
-                <List dividersIos strong strongIos>
+                <List mediaList dividersIos strong strongIos>
                     <ListGroup>
                         <ReactSortable
                             list={playersOnBench}
@@ -102,7 +103,8 @@ const HomePage = () => {
                             {playersOnBench.map((player) => (
                                 <PlayerListItem 
                                     key={player.id}
-                                    player={player}>
+                                    player={player}
+                                    showPosition={false}>
                                 </PlayerListItem>
                             ))}
                         </ReactSortable>

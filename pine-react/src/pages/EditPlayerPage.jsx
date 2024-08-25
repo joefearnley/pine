@@ -12,22 +12,23 @@ import {
     f7,
 } from 'framework7-react';
 import PageToolbar from '../components/PageLinks.jsx';
-import { playerDB } from '../db.js';
+import { playerDB, playerPositions } from '../db.js';
 
 const EditPlayerPage = (props) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState(0);
-    const toast = useRef(null);
+    const [position, setPosition] = useState('');
 
     useEffect(() => {
         playerDB.loadPlayers();
         let player = playerDB.getPlayer(props.playerId);
         setName(player.name);
         setNumber(player.number);
+        setPosition(player.position);
     }, []);
 
     const updatePlayer = () => {
-        playerDB.updatePlayer(props.playerId, name, number);
+        playerDB.updatePlayer(props.playerId, name, number, position);
 
         f7.dialog.alert(`Player ${name} - #${number} Updated.`, () => {
             props.f7router.navigate(`/roster`);
@@ -67,6 +68,18 @@ const EditPlayerPage = (props) => {
                     value={number}
                     onChange={e => setNumber(e.target.value)}
                 >
+                </ListInput>
+                <ListInput 
+                    label="Position"
+                    type="select"
+                    name="position"
+                    required
+                    value={position}
+                    onChange={e => setPosition(e.target.value)}>
+                        <option value="">choose player position</option>
+                        {playerPositions.map((position, index) => (
+                            <option key={index} value={position.name}>{position.name}</option>
+                        ))}
                 </ListInput>
             </List>
 

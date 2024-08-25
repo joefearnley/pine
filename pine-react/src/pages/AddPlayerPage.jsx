@@ -12,17 +12,17 @@ import {
     f7,
 } from 'framework7-react';
 import PageToolbar from '../components/PageLinks.jsx';
-import { playerDB } from '../db.js';
+import { playerDB, playerPositions } from '../db.js';
 
 const AddPlayerPage = (props) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-    const toast = useRef(null);
+    const [position, setPosition] = useState('');
 
     playerDB.loadPlayers();
 
     const addPlayer = () => {
-        playerDB.addPlayer(name, parseInt(number));
+        playerDB.addPlayer(name, parseInt(number), position);
 
         f7.dialog.alert(`Player ${name} - #${number} Created.`, () => {
             props.f7router.navigate(`/roster`);
@@ -62,6 +62,18 @@ const AddPlayerPage = (props) => {
                     value={number}
                     onChange={e => setNumber(e.target.value)}
                 >
+                </ListInput>
+                <ListInput 
+                    label="Position"
+                    type="select"
+                    name="position"
+                    required
+                    value={position}
+                    onChange={e => setPosition(e.target.value)}>
+                        <option value="">choose player position</option>
+                        {playerPositions.map((position, index) => (
+                            <option key={index} value={position.name}>{position.name}</option>
+                        ))}
                 </ListInput>
             </List>
 
